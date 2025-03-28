@@ -35,20 +35,20 @@ const categories = [
 
 const CategoryGrid = () => {
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h2 className="text-2xl font-bold text-gray-900 text-center my-8">Shop by Category</h2>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">Shop by Category</h2>
+      <div className="flex justify-between items-center space-x-4">
         {categories.map((category) => (
           <Link
             key={category.name}
             to={category.href}
-            className="group relative"
+            className="group flex-1"
           >
-            <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg">
+            <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-100">
               <img
                 src={category.image}
                 alt={category.name}
-                className="h-full w-full object-cover object-center group-hover:opacity-75"
+                className="h-64 w-full object-cover object-center group-hover:opacity-75"
               />
             </div>
             <h3 className="mt-4 text-sm text-gray-700 text-center">{category.name}</h3>
