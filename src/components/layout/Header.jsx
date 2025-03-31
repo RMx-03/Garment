@@ -1,77 +1,91 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FiSearch, FiUser, FiShoppingBag, FiChevronDown } from 'react-icons/fi';
+import { FiSearch, FiUser, FiShoppingBag, FiMenu, FiX, FiChevronDown } from 'react-icons/fi';
 import SearchOverlay from '../search/SearchOverlay';
-import CartOverlay from "../cart/CartOverlay";
+import CartOverlay from '../cart/CartOverlay';
+import { useCart } from '../../context/CartContext';
 
 const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [showWomenMenu, setShowWomenMenu] = useState(false);
-  const [showMenMenu, setShowMenMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  // const [showWomenMenu, setShowWomenMenu] = useState(false);
+  // const [showMenMenu, setShowMenMenu] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);  
-  const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-  };
-  const [cartCount, setCartCount] = useState(0); 
+  const { getCartCount } = useCart(); 
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
-  const womenCategories = {
-    highlights: [
-      { name: "Shop All New Arrivals", link: "/women/new" },
-      { name: "The Gift Guide", link: "/women/gift-guide" },
-      { name: "New Bottoms", link: "/women/bottoms" },
-      { name: "New Tops", link: "/women/tops" },
-      { name: "T-Shirt Bundles", link: "/women/bundles" },
-      { name: "Under $100", link: "/women/under-100" },
-    ],
-    featured: [
-      { name: "The Holiday Outfit Edit", link: "/women/holiday" },
-      { name: "Giftable Sweaters", link: "/women/sweaters" },
-      { name: "Uniform & Capsule", link: "/women/uniform" },
-      { name: "Top Rated Women's Clothing", link: "/women/top-rated" },
-    ]
-  };
+  // const womenCategories = {
+  //   highlights: [
+  //     { name: "Shop All New Arrivals", link: "/women/new" },
+  //     { name: "The Gift Guide", link: "/women/gift-guide" },
+  //     { name: "New Bottoms", link: "/women/bottoms" },
+  //     { name: "New Tops", link: "/women/tops" },
+  //     { name: "T-Shirt Bundles", link: "/women/bundles" },
+  //     { name: "Under $100", link: "/women/under-100" },
+  //   ],
+  //   featured: [
+  //     { name: "The Holiday Outfit Edit", link: "/women/holiday" },
+  //     { name: "Giftable Sweaters", link: "/women/sweaters" },
+  //     { name: "Uniform & Capsule", link: "/women/uniform" },
+  //     { name: "Top Rated Women's Clothing", link: "/women/top-rated" },
+  //   ]
+  // };
 
-  const menCategories = {
-    highlights: [
-      { name: "Shop All New Arrivals", link: "/men/new" },
-      { name: "The Gift Guide", link: "/men/gift-guide" },
-      { name: "New Bottoms", link: "/men/bottoms" },
-      { name: "New Tops", link: "/men/tops" },
-      { name: "T-Shirt Bundles", link: "/men/bundles" },
-      { name: "Under $100", link: "/men/under-100" },
-    ],
-    featured: [
-      { name: "The Holiday Outfit Edit", link: "/men/holiday" },
-      { name: "Giftable Sweaters", link: "/men/sweaters" },
-      { name: "The Performance Chino Shop", link: "/men/chinos" },
-      { name: "Top Rated Men's Clothing", link: "/men/top-rated" },
-    ]
-  };
+  // const menCategories = {
+  //   highlights: [
+  //     { name: "Shop All New Arrivals", link: "/men/new" },
+  //     { name: "The Gift Guide", link: "/men/gift-guide" },
+  //     { name: "New Bottoms", link: "/men/bottoms" },
+  //     { name: "New Tops", link: "/men/tops" },
+  //     { name: "T-Shirt Bundles", link: "/men/bundles" },
+  //     { name: "Under $100", link: "/men/under-100" },
+  //   ],
+  //   featured: [
+  //     { name: "The Holiday Outfit Edit", link: "/men/holiday" },
+  //     { name: "Giftable Sweaters", link: "/men/sweaters" },
+  //     { name: "The Performance Chino Shop", link: "/men/chinos" },
+  //     { name: "Top Rated Men's Clothing", link: "/men/top-rated" },
+  //   ]
+  // };
 
   return (
     <header className="fixed w-full top-0 z-50 bg-white shadow-sm">
       <nav className="relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
+            {/* Mobile Menu button */}
+            <div className="flex lg:hidden">
+              <button
+                type="button"
+                className="text-gray-700 hover:text-black"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
+                {isMobileMenuOpen ? (
+                  <FiX className="h-6 w-6" />
+                ) : (
+                  <FiMenu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
+
             {/* Logo */}
             <div className="flex-shrink-0">
               <Link to="/" className="text-2xl font-bold">GARMENTS</Link>
             </div>
 
             {/* Main Navigation */}
-            <div className="hidden md:block">
+            <div className="hidden lg:block">
               <div className="flex items-center space-x-8">
                 <div 
                   className="relative group"
-                  onMouseEnter={() => setShowWomenMenu(true)}
-                  onMouseLeave={() => setShowWomenMenu(false)}
+                  // onMouseEnter={() => setShowWomenMenu(true)}
+                  // onMouseLeave={() => setShowWomenMenu(false)}
                 >
                   <Link to="/women" className="text-gray-700 hover:text-black flex items-center">
-                    Women <FiChevronDown className="ml-1" />
+                    Women {/* <FiChevronDown className="ml-1" /> */}
                   </Link>
-                  {showWomenMenu && (
+                  {/* {showWomenMenu && (
                     <div className="absolute left-1/2 -translate-x-1/2 w-screen bg-white border-t border-gray-200 shadow-lg">
                       <div className="max-w-7xl mx-auto px-8 py-6 grid grid-cols-4 gap-x-8">
                         <div className="col-span-1">
@@ -136,18 +150,18 @@ const Header = () => {
                         </div>
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
                 
                 <div 
                   className="relative group"
-                  onMouseEnter={() => setShowMenMenu(true)}
-                  onMouseLeave={() => setShowMenMenu(false)}
+                  // onMouseEnter={() => setShowMenMenu(true)}
+                  // onMouseLeave={() => setShowMenMenu(false)}
                 >
                   <Link to="/men" className="text-gray-700 hover:text-black flex items-center">
-                    Men <FiChevronDown className="ml-1" />
+                    Men {/* <FiChevronDown className="ml-1" /> */}
                   </Link>
-                  {showMenMenu && (
+                  {/* {showMenMenu && (
                     <div className="absolute left-1/2 -translate-x-1/2 w-screen bg-white border-t border-gray-200 shadow-lg">
                       <div className="max-w-7xl mx-auto px-8 py-6 grid grid-cols-4 gap-x-8">
                         <div className="col-span-1">
@@ -212,7 +226,7 @@ const Header = () => {
                         </div>
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
                 <Link to="/about" className="text-gray-700 hover:text-black">About</Link>
                 <Link to="/stores" className="text-gray-700 hover:text-black">Stores</Link>
@@ -232,22 +246,57 @@ const Header = () => {
               </Link>
 
               {/* Cart */}
-              {/* <Link to="/cart" className="text-gray-700 hover:text-black">
+              <button
+                className="text-gray-700 hover:text-black relative"
+                onClick={() => setIsCartOpen(true)}
+              >
                 <FiShoppingBag className="h-6 w-6" />
-              </Link> */}
-              <button className="text-gray-700 hover:text-black relative" onClick={toggleCart}>
-                <FiShoppingBag className="h-6 w-6" />
-                {/* Cart Badge */}
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                    {cartCount}
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {getCartCount()}
                   </span>
                 )}
               </button>
-
-
             </div>
           </div>
+          
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden">
+              <div className="border-t border-gray-200 pt-4 pb-3">
+                <div className="space-y-1">
+                  <Link
+                    to="/women"
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Women
+                  </Link>
+                  <Link
+                    to="/men"
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Men
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    About
+                  </Link>
+                  <Link
+                    to="/stores"
+                    className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Stores
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Secondary Navigation - Only shown on homepage */}
           {isHomePage && (
@@ -272,11 +321,7 @@ const Header = () => {
       {isSearchOpen && <SearchOverlay onClose={() => setIsSearchOpen(false)} />}
 
       {/* Cart Overlay */}
-      <CartOverlay 
-        isOpen={isCartOpen}
-        onClose={toggleCart}
-        updateCartCount={setCartCount}       
-      />
+      {isCartOpen && <CartOverlay onClose={() => setIsCartOpen(false)} />}
     </header>
   );
 };

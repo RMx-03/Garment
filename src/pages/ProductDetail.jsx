@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { FiTruck, FiPackage, FiGift } from 'react-icons/fi';
+import { useCart } from '../context/CartContext';
 
 const ProductDetail = () => {
+  const { addToCart } = useCart();
+
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('Black / Olive');
 
@@ -93,7 +96,21 @@ const ProductDetail = () => {
             </div>
 
             {/* Add to Bag Button */}
-            <button className="mt-8 w-full bg-black text-white py-3 hover:bg-gray-800">
+            <button 
+              className="mt-8 w-full bg-black text-white py-3 hover:bg-gray-800"
+              onClick={() => {
+                if (!selectedSize) {
+                  alert('Please select a size.');
+                  return;
+                }
+                if (!selectedColor) {
+                  alert('Please select a color.');
+                  return;
+                }
+                addToCart(product, 1, selectedSize, selectedColor);
+                alert('Added to bag!');
+              }}
+            >
               ADD TO BAG
             </button>
 

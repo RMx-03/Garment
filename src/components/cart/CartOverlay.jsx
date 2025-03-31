@@ -1,49 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiX, FiMinus, FiPlus } from 'react-icons/fi';
+import { FiX, FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
+import { useCart } from '../../context/CartContext';
 
-export default function CartOverlay({ isOpen, onClose, updateCartCount }) {
-  if (!isOpen) return null;
-
-  const [cartItems, setCartItems] = React.useState([
-    {
-      id: 1,
-      name: "The Organic Cotton Long-Sleeve Turtleneck",
-      price: 29.99,
-      quantity: 1,
-      image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=100&q=80",
-      color: "White",
-    },
-    {
-      id: 2,
-      name: "The ReWool® Oversized Shirt Jacket",
-      price: 49.99,
-      quantity: 2,
-      image: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=100&q=80",
-      color: "Orange",
-    },
-  ]);
-
-  useEffect(() => {
-    const totalCartItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    updateCartCount(totalCartItems);
-  }, [cartItems, updateCartCount]);
-
-  const updateQuantity = (id, newQuantity) => {
-    setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeItem = (id) => {
-    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
-  };
-
-  
-
-  const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+const CartOverlay = ({ onClose }) => {
+  const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
@@ -52,7 +11,7 @@ export default function CartOverlay({ isOpen, onClose, updateCartCount }) {
         <div className="w-screen max-w-md">
           <div className="flex h-full flex-col bg-white shadow-xl">
             <div className="flex items-center justify-between px-4 py-6">
-              <h2 className="text-lg font-medium text-gray-900">Your Cart ({cartItems.length})</h2>
+              <h2 className="text-lg font-medium text-gray-900">Shopping Cart</h2>
               <button
                 type="button"
                 className="text-gray-400 hover:text-gray-500"
@@ -63,9 +22,11 @@ export default function CartOverlay({ isOpen, onClose, updateCartCount }) {
             </div>
 
             <div className="flex-1 overflow-y-auto px-4 py-6">
-              {cartItems.length > 0 ? (
+              {cartItems.length === 0 ? (
+                <p className="text-center text-gray-500">Your cart is empty</p>
+              ) : (
                 cartItems.map((item) => (
-                  <div key={item.id} className="flex py-6">
+                  <div key={`${item.id}-${item.size}-${item.color}`} className="flex py-6 border-b">
                     <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md">
                       <img
                         src={item.image}
@@ -80,55 +41,67 @@ export default function CartOverlay({ isOpen, onClose, updateCartCount }) {
                           <h3>{item.name}</h3>
                           <p className="ml-4">${item.price}</p>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500">{item.color}</p>
+                        <p className="mt-1 text-sm text-gray-500">
+                          {item.color} | Size {item.size}
+                        </p>
                       </div>
                       <div className="flex flex-1 items-end justify-between text-sm">
-                        <div className="flex items-center">
+                        <div className="flex items-center border rounded">
                           <button
-                            onClick={() => updateQuantity(item.id, Math.max(0, item.quantity - 1))}
-                            className="p-1"
+                            onClick={() => updateQuantity(item.id, item.size, item.color, item.quantity - 1)}
+                            className="p-2"
                           >
                             <FiMinus className="h-4 w-4" />
                           </button>
-                          <span className="mx-2">{item.quantity}</span>
+                          <span className="px-4 py-2 border-x">{item.quantity}</span>
                           <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="p-1"
+                            onClick={() => updateQuantity(item.id, item.size, item.color, item.quantity + 1)}
+                            className="p-2"
                           >
                             <FiPlus className="h-4 w-4" />
                           </button>
                         </div>
                         <button
                           type="button"
-                          onClick={() => removeItem(item.id)}
-                          className="font-medium text-gray-500 hover:text-gray-800"
+                          onClick={() => removeFromCart(item.id, item.size, item.color)}
+                          className="text-gray-500 hover:text-gray-800"
                         >
-                          Remove
+                          <FiTrash2 className="h-5 w-5" />
                         </button>
                       </div>
                     </div>
                   </div>
                 ))
-              ) : (
-                <p className="text-center text-gray-500">Your cart is empty.</p>  
               )}
             </div>
 
             <div className="border-t border-gray-200 px-4 py-6">
               <div className="flex justify-between text-base font-medium text-gray-900">
                 <p>Subtotal</p>
-                <p>${subtotal.toFixed(2)}</p>
+                <p>${getCartTotal().toFixed(2)}</p>
               </div>
               <p className="mt-0.5 text-sm text-gray-500">
                 Shipping and taxes calculated at checkout.
               </p>
               <div className="mt-6">
-                <Link
-                  to="/checkout"
-                  className={`flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white ${cartItems.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-800'}`}
+                <button
+                  className="w-full flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white hover:bg-gray-800"
+                  onClick={() => {
+                    // Handle checkout
+                    console.log('Proceeding to checkout');
+                  }}
                 >
                   Checkout
-                </Link>
+                </button>
+              </div>
+              <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+                <button
+                  type="button"
+                  className="font-medium text-black hover:text-gray-800"
+                  onClick={onClose}
+                >
+                  Continue Shopping
+                </button>
               </div>
             </div>
           </div>
@@ -138,3 +111,4 @@ export default function CartOverlay({ isOpen, onClose, updateCartCount }) {
   );
 };
 
+export default CartOverlay;

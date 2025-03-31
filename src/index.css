@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Fixed product card sizes */
+.product-card {
+  @apply w-full;
+}
+
+.product-card-image {
+  @apply relative w-full overflow-hidden rounded-lg bg-gray-100;
+  padding-bottom: 100%; /* 1:1 Aspect Ratio */
+}
+
+.product-card-image img {
+  @apply absolute inset-0 h-full w-full object-cover object-center;
+}
