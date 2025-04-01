@@ -7,7 +7,10 @@ export const womenProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
         colors: ['Black', 'Navy', 'Brown', 'Charcoal'],
-        category: 'Sweaters'
+        category: 'Sweaters',
+        rating: 4.8,
+        reviews: 156,
+        date: '2024-01-15'
     },
     {
         id: 2,
@@ -17,7 +20,10 @@ export const womenProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105',
         colors: ['Black', 'Navy', 'White'],
-        category: 'Tops'
+        category: 'Tops',
+        rating: 4.9,
+        reviews: 243,
+        date: '2024-01-10'
     },
     {
         id: 3,
@@ -27,7 +33,49 @@ export const womenProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7',
         colors: ['White', 'Black', 'Blue'],
-        category: 'Tops'
+        category: 'Tops',
+        rating: 4.7,
+        reviews: 89,
+        date: '2024-01-20'
+    },
+    {
+        id: 7,
+        name: 'The Wool Blend Blazer',
+        price: 188,
+        originalPrice: 268,
+        discount: '30% off',
+        image: 'https://images.unsplash.com/photo-1548624149-f9461d5c1158',
+        colors: ['Black', 'Navy', 'Gray'],
+        category: 'Outerwear',
+        rating: 4.9,
+        reviews: 67,
+        date: '2024-01-05'
+    },
+    {
+        id: 8,
+        name: 'The High-Rise Straight Leg Jean',
+        price: 98,
+        originalPrice: 140,
+        discount: '30% off',
+        image: 'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1',
+        colors: ['Light Wash', 'Medium Wash', 'Dark Wash'],
+        category: 'Pants',
+        rating: 4.8,
+        reviews: 324,
+        date: '2024-01-12'
+    },
+    {
+        id: 9,
+        name: 'The Merino Wool Dress',
+        price: 145,
+        originalPrice: 198,
+        discount: '27% off',
+        image: 'https://images.unsplash.com/photo-1495385794356-15371f348c31',
+        colors: ['Black', 'Navy', 'Forest'],
+        category: 'Dresses',
+        rating: 4.9,
+        reviews: 178,
+        date: '2024-01-18'
     }
 ];
 
@@ -40,7 +88,10 @@ export const menProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22',
         colors: ['Khaki', 'Navy', 'Black', 'Olive'],
-        category: 'Pants'
+        category: 'Pants',
+        rating: 4.8,
+        reviews: 245,
+        date: '2024-01-15'
     },
     {
         id: 5,
@@ -50,7 +101,10 @@ export const menProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2',
         colors: ['Navy', 'Charcoal', 'Brown'],
-        category: 'Sweaters'
+        category: 'Sweaters',
+        rating: 4.9,
+        reviews: 189,
+        date: '2024-01-08'        
     },
     {
         id: 6,
@@ -60,6 +114,48 @@ export const menProducts = [
         discount: '30% off',
         image: 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f',
         colors: ['White', 'Blue', 'Gray'],
-        category: 'Shirts'
+        category: 'Shirts',
+        rating: 4.7,
+        reviews: 156,
+        date: '2024-01-20'
+    },
+    {
+        id: 10,
+        name: 'The Selvedge Denim Jean',
+        price: 128,
+        originalPrice: 168,
+        discount: '24% off',
+        image: 'https://images.unsplash.com/photo-1542272604-787c3835535d',
+        colors: ['Raw', 'Gray', 'DarkCyan'],
+        category: 'Pants',
+        rating: 4.9,
+        reviews: 267,
+        date: '2024-01-10'
+    },
+    {
+        id: 11,
+        name: 'The Cashmere Crew',
+        price: 165,
+        originalPrice: 220,
+        discount: '25% off',
+        image: 'https://images.unsplash.com/photo-1578932750294-f5075e85f44a',
+        colors: ['Black', 'Navy', 'Gray', 'Camel'],
+        category: 'Sweaters',
+        rating: 4.8,
+        reviews: 198,
+        date: '2024-01-12'
+    },
+    {
+        id: 12,
+        name: 'The Wool Topcoat',
+        price: 298,
+        originalPrice: 398,
+        discount: '25% off',
+        image: 'https://images.unsplash.com/photo-1544923246-77307dd654cb',
+        colors: ['Camel', 'Black', 'Gray'],
+        category: 'Outerwear',
+        rating: 4.9,
+        reviews: 145,
+        date: '2024-01-05'
     }
 ];

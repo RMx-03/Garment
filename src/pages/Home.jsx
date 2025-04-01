@@ -115,25 +115,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Mission Statement */}
-      <section className="relative py-24">
-        <img
-          src="https://images.unsplash.com/photo-1523381294911-8d3cead13475"
-          alt="Mission"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="relative bg-black bg-opacity-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">We're on a Mission To Clean Up the Industry</h2>
-            <p className="text-lg mb-8">Read about our progress in our latest Impact Report.</p>
-            <button className="bg-white text-black px-8 py-3 hover:bg-gray-100">
-              LEARN MORE
-            </button>
-          </div>
-        </div>
-      </section>
+      </section>      
 
       {/* Garment Favorites */}
       <section className="py-16">
@@ -204,6 +186,24 @@ const Home = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+        </div>
+      </section>
+
+      {/* Mission Statement */}
+      <section className="relative py-24">
+        <img
+          src="https://images.unsplash.com/photo-1523381294911-8d3cead13475"
+          alt="Mission"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="relative bg-black bg-opacity-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center text-white">
+            <h2 className="text-4xl font-bold mb-4">We're on a Mission To Clean Up the Industry</h2>
+            <p className="text-lg mb-8">Read about our progress in our latest Impact Report.</p>
+            <button className="bg-white text-black px-8 py-3 hover:bg-gray-100">
+              LEARN MORE
+            </button>
+          </div>
         </div>
       </section>
     </div>
