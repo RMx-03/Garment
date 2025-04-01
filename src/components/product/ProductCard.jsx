@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
-    const productImage = product.images?.length > 0 ? product.images[0] : 'fallback-image.jpg';
+    // Get the first image from the image array
+    const productImage = Array.isArray(product.image) && product.image.length > 0 
+      ? product.image[0] 
+      : 'fallback-image.jpg';
 
     return (
       <Link to={`/product/${product.id}`} className="group product-card">
