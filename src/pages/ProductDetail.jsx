@@ -1,29 +1,48 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FiTruck, FiPackage, FiGift } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
+import { Products } from '../data/products.js';
+
 
 const ProductDetail = () => {
+  const { id } = useParams();
   const { addToCart } = useCart();
-
+  
   const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('Black / Olive');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [product, setProduct] = useState(null);
 
-  const product = {
-    name: 'The ReWool® Oversized Shirt Jacket',
-    price: 167,
-    originalPrice: 238,
-    discount: '30% off',
-    rating: 5.0,
-    reviews: 2,
-    colors: ['Black / Olive', 'Brown'],
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    images: [
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27'
-    ]
-  };
+  // const product = {
+  //   name: 'The ReWool® Oversized Shirt Jacket',
+  //   price: 167,
+  //   originalPrice: 238,
+  //   discount: '30% off',
+  //   rating: 5.0,
+  //   reviews: 2,
+  //   colors: ['Black / Olive', 'Brown'],
+  //   sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+  //   images: [
+  //     'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
+  //     'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
+  //     'https://images.unsplash.com/photo-1576566588028-4147f3842f27',
+  //     'https://images.unsplash.com/photo-1576566588028-4147f3842f27'
+  //   ]
+  // };
+
+  useEffect(() => {
+    const allProducts = [
+      ...Products.women,
+      ...Products.men,
+    ];
+    const foundProduct = allProducts.find(p => p.id === id);
+    setProduct(foundProduct);
+  }, [id]);
+
+  if (!product) {
+    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+  }
+
 
   return (
     <div className="bg-white">
@@ -35,7 +54,7 @@ const ProductDetail = () => {
               <div key={index} className="aspect-w-1 aspect-h-1">
                 <img
                   src={image}
-                  alt={`Product ${index + 1}`}
+                  alt={`${product.name} - View ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -52,6 +71,11 @@ const ProductDetail = () => {
                   ${product.originalPrice}
                 </p>
               )}
+            </div>
+            
+            {/* Description */}
+            <div className="mt-4">
+              <p className="text-gray-600">{product.description}</p>
             </div>
 
             {/* Color Selection */}
@@ -93,6 +117,16 @@ const ProductDetail = () => {
                   </button>
                 ))}
               </div>
+            </div>
+            
+            {/* Product Details */}
+            <div className="mt-8">
+              <h2 className="text-sm font-medium text-gray-900">Product Details</h2>
+              <ul className="mt-2 space-y-2">
+                {product.details.map((detail, index) => (
+                  <li key={index} className="text-gray-600">• {detail}</li>
+                ))}
+              </ul>
             </div>
 
             {/* Add to Bag Button */}

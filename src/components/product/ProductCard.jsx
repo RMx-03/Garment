@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
+    const productImage = product.images?.length > 0 ? product.images[0] : 'fallback-image.jpg';
+
     return (
       <Link to={`/product/${product.id}`} className="group product-card">
         <div className="product-card-image">
           <img
-            src={product.image}
-            alt={product.name}
+            src={productImage}
+            alt={product.name || 'Product Image'}
             className="group-hover:opacity-75"
           />
           {product.discount && (
@@ -26,7 +28,7 @@ const ProductCard = ({ product }) => {
             )}
           </div>
           <div className="flex gap-1">
-            {product.colors.map((color) => (
+            {product.colors?.map((color) => (
               <div
                 key={color}
                 className="h-4 w-4 rounded-full border border-gray-300"

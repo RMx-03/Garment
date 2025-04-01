@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/product/ProductCard';
-import { womenProducts, menProducts } from '../data/products';
+import { Products } from '../data/products';
 import { FiChevronDown } from 'react-icons/fi';
 
 const ProductListing = ({ category }) => {
@@ -10,7 +10,7 @@ const ProductListing = ({ category }) => {
   const [sortBy, setSortBy] = useState('featured');
   const [showSortMenu, setShowSortMenu] = useState(false);
   
-  const products = category === 'women' ? womenProducts : menProducts;
+  const products = category === 'women' ? Products.women : Products.men;
   const pageTitle = category === 'women' ? "Women's Clothing & Apparel" : "Men's Clothing & Apparel";
 
   const categories = [...new Set(products.map(product => product.category))];
@@ -176,7 +176,13 @@ const ProductListing = ({ category }) => {
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {sortedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+                <ProductCard 
+                  key={product.id} 
+                  product={{
+                    ...product,
+                    image: product.images && product.images.length > 0 ? product.images[0] : 'fallback-image.jpg'
+                  }} 
+                />
               ))}
             </div>
           </div>
