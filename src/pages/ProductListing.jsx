@@ -33,14 +33,13 @@ const ProductListing = ({ category }) => {
   }
 
   const sortProducts = (products) => {
-    console.log("Sorting by:", sortBy, products);
     switch (sortBy) {
       case 'price-low-high':
         return [...products].sort((a, b) => a.price - b.price);
       case 'price-high-low':
         return [...products].sort((a, b) => b.price - a.price);
       case 'newest':
-        return [...products].sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+        return [...products].sort((a, b) => new Date(b.date) - new Date(a.date));
       case 'rating':
         return [...products].sort((a, b) => b.rating - a.rating);
       case 'reviews':
@@ -59,57 +58,57 @@ const ProductListing = ({ category }) => {
   const sortedProducts = sortProducts(filteredProducts);
   
   return (
-  <div className="bg-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
-        <div> 
-          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
-            {pageTitle} 
-          </h1>
-          <p className="mt-2 text-sm text-gray-500">
-            {sortedProducts.length} results
-          </p>
-        </div>
+    <div className="bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-baseline justify-between border-b border-gray-200 pb-6">
+          <div> 
+            <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-gray-900">
+              {pageTitle} 
+            </h1>
+            <p className="mt-2 text-sm text-gray-500">
+              {sortedProducts.length} results
+            </p>
+          </div>
 
-        {/* Sort Menu */}
-        <div className="relative">
-          <button
-            className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
-            onClick={() => setShowSortMenu(!showSortMenu)}
-          >
-            Sort by
-            <FiChevronDown className="ml-2 h-5 w-5" />
-          </button>
+          {/* Sort Menu */}
+          <div className="relative">
+            <button
+              className="group inline-flex items-center justify-center text-sm font-medium text-gray-700 hover:text-gray-900"
+              onClick={() => setShowSortMenu(!showSortMenu)}
+            >
+              Sort by
+              <FiChevronDown className="ml-2 h-5 w-5" />
+            </button>
 
-          {showSortMenu && (
-            <div className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
-              <div className="py-1">
-                {[
-                  { value: 'featured', label: 'Featured' },
-                  { value: 'newest', label: 'Newest Arrivals' },
-                  { value: 'price-low-high', label: 'Price: Low to High' },
-                  { value: 'price-high-low', label: 'Price: High to Low' },
-                  { value: 'rating', label: 'Highest Rated' },
-                  { value: 'reviews', label: 'Most Reviewed' }
-                ].map((option) => (
-                  <button
-                    key={option.value}
-                    className={`block px-4 py-2 text-sm w-full text-left ${
-                      sortBy === option.value ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                    } hover:bg-gray-100`}
-                    onClick={() => {
-                      setSortBy(option.value);
-                      setShowSortMenu(false);
-                    }}
-                  >
-                    {option.label}
-                  </button>
-                ))}
+            {showSortMenu && (
+              <div className="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="py-1">
+                  {[
+                    { value: 'featured', label: 'Featured' },
+                    { value: 'newest', label: 'Newest Arrivals' },
+                    { value: 'price-low-high', label: 'Price: Low to High' },
+                    { value: 'price-high-low', label: 'Price: High to Low' },
+                    { value: 'rating', label: 'Highest Rated' },
+                    { value: 'reviews', label: 'Most Reviewed' }
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      className={`block px-4 py-2 text-sm w-full text-left ${
+                        sortBy === option.value ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                      } hover:bg-gray-100`}
+                      onClick={() => {
+                        setSortBy(option.value);
+                        setShowSortMenu(false);
+                      }}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-      </div>
 
         <div className="flex flex-col lg:flex-row gap-x-8 pt-6">
           {/* Filters - Mobile */}
@@ -176,13 +175,7 @@ const ProductListing = ({ category }) => {
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
               {sortedProducts.map((product) => (
-                <ProductCard 
-                  key={product.id} 
-                  product={{
-                    ...product,
-                    image: product.images && product.images.length > 0 ? product.images[0] : 'fallback-image.jpg'
-                  }} 
-                />
+                <ProductCard key={product.id} product={product} />
               ))}
             </div>
           </div>
