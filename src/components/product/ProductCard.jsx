@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ProductCard = ({ product }) => {
     // Get the first image from the image array
@@ -7,9 +9,9 @@ const ProductCard = ({ product }) => {
       : 'fallback-image.jpg';
 
     return (
-      <Link to={`/product/${product.id}`} className="group product-card">
+      <Link to={`/product/${product.id}`} className="group product-card animate-fade-in">
         <div className="product-card-image">
-          <img
+          <LazyLoadImage
             src={productImage}
             alt={product.name || 'Product Image'}
             className="group-hover:opacity-75"
