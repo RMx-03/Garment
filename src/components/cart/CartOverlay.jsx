@@ -1,8 +1,15 @@
 import { FiX, FiMinus, FiPlus, FiTrash2 } from 'react-icons/fi';
 import { useCart } from '../../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const CartOverlay = ({ onClose }) => {
   const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    onClose();
+    navigate('/checkout');
+  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
@@ -86,10 +93,8 @@ const CartOverlay = ({ onClose }) => {
               <div className="mt-6">
                 <button
                   className="w-full flex items-center justify-center rounded-md border border-transparent bg-black px-6 py-3 text-base font-medium text-white hover:bg-gray-800"
-                  onClick={() => {
-                    // Handle checkout
-                    console.log('Proceeding to checkout');
-                  }}
+                  onClick={handleCheckout}
+                  disabled={cartItems.length === 0}
                 >
                   Checkout
                 </button>

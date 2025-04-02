@@ -10,6 +10,11 @@ import NotFound from './pages/NotFound';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import About from './pages/About';
+import HolidayGifting from './pages/HolidayGifting';
+import NewArrivals from './pages/NewArrivals';
+import BestSellers from './pages/BestSellers';
+import Checkout from './pages/Checkout';
+import CheckoutSuccess from './pages/CheckoutSuccess';
 
 function App() {
   return (
@@ -27,6 +32,11 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/about" element={<About />} />
+              <Route path="/holiday" element={<HolidayGifting />} />
+              <Route path="/new" element={<NewArrivals />} />
+              <Route path="/best-sellers" element={<BestSellers />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/checkout/success" element={<CheckoutSuccess />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

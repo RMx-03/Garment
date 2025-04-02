@@ -1,3 +1,14 @@
+export const Categories = {
+    HOLIDAY_GIFTING: 'holiday-gifting',
+    NEW_ARRIVALS: 'new-arrivals',
+    BEST_SELLERS: 'best-sellers',
+    CLOTHING: 'clothing',
+    TOPS: 'tops',
+    PANTS: 'pants',
+    OUTERWEAR: 'outerwear',
+    SHOES: 'shoes'
+};
+
 export const Products = {
     women: [
       {
@@ -25,6 +36,7 @@ export const Products = {
         colors: ['Cream', 'Black', 'Navy', 'Camel'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Sweaters',
+        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS],
         rating: 4.8,
         reviews: 156,
         inStock: true,
@@ -54,6 +66,7 @@ export const Products = {
         colors: ['Black', 'White', 'Navy', 'Gray'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Tops',
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
         rating: 4.9,
         reviews: 243,
         inStock: true,
@@ -84,6 +97,7 @@ export const Products = {
         colors: ['White', 'Black', 'Navy', 'Blush'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Tops',
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
         rating: 4.7,
         reviews: 89,
         inStock: true,
@@ -115,6 +129,7 @@ export const Products = {
         colors: ['Black', 'Navy', 'Gray', 'Camel'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Outerwear',
+        categories: [Categories.OUTERWEAR, Categories.HOLIDAY_GIFTING],
         rating: 4.9,
         reviews: 67,
         inStock: true,
@@ -145,6 +160,7 @@ export const Products = {
         colors: ['Light Wash', 'Medium Wash', 'Dark Wash', 'Black'],
         sizes: ['24', '25', '26', '27', '28', '29', '30', '31', '32'],
         category: 'Pants',
+        categories: [Categories.PANTS, Categories.BEST_SELLERS],
         rating: 4.8,
         reviews: 324,
         inStock: true,
@@ -178,6 +194,7 @@ export const Products = {
         colors: ['Khaki', 'Navy', 'Black', 'Olive'],
         sizes: ['28x30', '30x30', '32x30', '34x30', '36x30'],
         category: 'Pants',
+        categories: [Categories.PANTS, Categories.BEST_SELLERS],
         rating: 4.8,
         reviews: 245,
         inStock: true,
@@ -208,6 +225,7 @@ export const Products = {
         colors: ['Navy', 'Charcoal', 'Forest', 'Burgundy'],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         category: 'Sweaters',
+        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS],
         rating: 4.9,
         reviews: 189,
         inStock: true,
@@ -238,6 +256,7 @@ export const Products = {
         colors: ['White', 'Blue', 'Gray', 'Pink'],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         category: 'Shirts',
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
         rating: 4.7,
         reviews: 156,
         inStock: true,
@@ -269,10 +288,35 @@ export const Products = {
         colors: ['Raw', 'Dark Wash', 'Medium Wash', 'Light Wash'],
         sizes: ['28x30', '30x30', '32x30', '34x30', '36x30'],
         category: 'Pants',
+        categories: [Categories.PANTS, Categories.NEW_ARRIVALS],
         rating: 4.9,
         reviews: 267,
         inStock: true,
         date: '2024-01-10'
       }
     ]
-  };
+};
+
+export const getProductsByCategory = (categoryName) => {
+    const allProducts = [...Products.women, ...Products.men];
+    return allProducts.filter(product => product.categories?.includes(categoryName));
+};
+
+export const getNewArrivals = () => {
+    const allProducts = [...Products.women, ...Products.men];
+    return allProducts
+        .filter(product => product.categories?.includes(Categories.NEW_ARRIVALS))
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+export const getBestSellers = () => {
+    const allProducts = [...Products.women, ...Products.men];
+    return allProducts
+        .filter(product => product.categories?.includes(Categories.BEST_SELLERS))
+        .sort((a, b) => b.rating - a.rating);
+};
+
+export const getHolidayGifts = () => {
+    const allProducts = [...Products.women, ...Products.men];
+    return allProducts.filter(product => product.categories?.includes(Categories.HOLIDAY_GIFTING));
+};
