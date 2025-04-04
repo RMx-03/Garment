@@ -1,9 +1,9 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-const ProductCard = ({ product }) => {
-    // Get the first image from the image array
+const ProductCard = memo(({ product }) => {    
     const productImage = Array.isArray(product.image) && product.image.length > 0 
       ? product.image[0] 
       : 'fallback-image.jpg';
@@ -45,6 +45,6 @@ const ProductCard = ({ product }) => {
         </div>
       </Link>
     );
-  };
+  });
   
   export default ProductCard;
