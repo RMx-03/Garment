@@ -30,7 +30,7 @@ export default defineConfig({
           'swiper-vendor': ['swiper'],
           'stripe-vendor': ['@stripe/stripe-js'],
           'image-vendor': ['react-lazy-load-image-component'],
-          'virtualization': ['react-virtualized', 'react-window'],
+          'virtualization': ['react-window'],
         },
       },
     },
@@ -56,8 +56,7 @@ export default defineConfig({
       '@headlessui/react',
       'react-icons',
       'swiper',
-      'react-lazy-load-image-component',
-      'react-virtualized',
+      'react-lazy-load-image-component',      
       'react-window'
     ],
   },
