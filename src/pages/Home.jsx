@@ -164,6 +164,10 @@ const Home = () => {
           <div className="max-w-6xl mx-auto"> 
             <Swiper
               modules={[Navigation, Pagination]}
+              lazy={true}
+              preloadImages={true}
+              watchSlidesVisibility={true}
+              watchSlidesProgress={true}
               spaceBetween={30}
               slidesPerView={1}
               navigation={true}
@@ -195,6 +199,7 @@ const Home = () => {
                         <LazyLoadImage
                           src={testimonial.image}
                           alt={testimonial.product}
+                          loading="lazy"
                           className="w-full h-full object-cover"                      
                         />
                       </Link>
