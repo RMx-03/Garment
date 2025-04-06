@@ -6,7 +6,11 @@ export const Categories = {
     TOPS: 'tops',
     PANTS: 'pants',
     OUTERWEAR: 'outerwear',
-    SHOES: 'shoes'
+    SHOES: 'shoes',
+    DRESSES: 'dresses',
+    SUITS: 'suits',
+    FORMAL: 'formal',
+    FAVOURITES: 'favourites',
 };
 
 export const Products = {
@@ -36,7 +40,7 @@ export const Products = {
         colors: ['Cream', 'Black', 'Navy', 'Camel'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Sweaters',
-        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS],
+        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS, Categories.FAVOURITES],
         rating: 4.8,
         reviews: 156,
         inStock: true,
@@ -160,7 +164,7 @@ export const Products = {
         colors: ['Light Wash', 'Medium Wash', 'Dark Wash', 'Black'],
         sizes: ['24', '25', '26', '27', '28', '29', '30', '31', '32'],
         category: 'Pants',
-        categories: [Categories.PANTS, Categories.BEST_SELLERS],
+        categories: [Categories.PANTS, Categories.BEST_SELLERS, Categories.FAVOURITES],
         rating: 4.8,
         reviews: 324,
         inStock: true,
@@ -319,4 +323,11 @@ export const getBestSellers = () => {
 export const getHolidayGifts = () => {
     const allProducts = [...Products.women, ...Products.men];
     return allProducts.filter(product => product.categories?.includes(Categories.HOLIDAY_GIFTING));
+};
+
+export const getFavourites = () => {
+    const allProducts = [...Products.women, ...Products.men];
+    return allProducts.filter(product => 
+      product.categories?.includes(Categories.FAVOURITES)
+    );
 };
