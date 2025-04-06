@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -5,7 +6,7 @@ import { Navigation, Pagination, Virtual } from 'swiper/modules';
 import { FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Hero from '../components/home/Hero';
 import CategoryGrid from '../components/home/CategoryGrid';
-import { Products, getFavourites   } from '../data/products';
+import { Products, getFavourites } from '../data/products';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -29,6 +30,88 @@ const testimonials = [
     image: "/images/products/pexels-cup-of-couple-6634909.webp"
   }
 ];
+
+const handleFavClick = (product) => {
+  console.log('Fav clicked for:', product.name);
+};
+
+// Memoized SlideItem
+const SlideItem = React.memo(({ product, onFavClick }) => (
+  <div className="relative group">
+    <div className="relative">
+      <Link to={`/product/${product.id}`}>
+        <LazyLoadImage
+          src={product.image[0]}
+          alt={product.name}
+          loading="lazy"
+          className="w-full aspect-[3/4] object-cover"
+        />
+      </Link>
+      <button
+        onClick={() => onFavClick(product)}
+        className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+      >
+        <FiHeart className="w-5 h-5" />
+      </button>
+    </div>
+    <div className="mt-4">
+      <Link to={`/product/${product.id}`} className="block">
+        <h3 className="text-sm font-medium">{product.name}</h3>
+        <p className="mt-1 text-sm">${product.price}</p>
+      </Link>
+    </div>
+  </div>
+));
+
+const TestimonialSlide = React.memo(({ testimonial }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div>
+      <div className="flex mb-4">
+        {[...Array(testimonial.rating)].map((_, i) => (
+          <span key={i} className="text-yellow-400">★</span>
+        ))}
+      </div>
+      <p className="text-xl mb-6">"{testimonial.text}"</p>
+      <p className="text-sm text-gray-600">
+        -- {testimonial.author},&nbsp;
+        <Link
+          to={`/product/${testimonial.id}`}
+          className="underline hover:text-black"
+        >
+          {testimonial.product}
+        </Link>
+      </p>
+    </div>
+    <div className="aspect-[3/4] overflow-hidden">
+      <Link to={`/product/${testimonial.id}`}>
+        <LazyLoadImage
+          src={testimonial.image}
+          alt={testimonial.product}
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </Link>
+    </div>
+  </div>
+));
+
+const getSwiperOptions = {
+  modules: [Navigation, Virtual],
+  lazy: { loadPrevNext: true },    
+  spaceBetween: 24,
+  slidesPerView: 4,
+  navigation: {
+    prevEl: '.swiper-button-prev',
+    nextEl: '.swiper-button-next',
+  },
+  className: 'favorites-swiper px-12',
+  breakpoints: {
+    320: { slidesPerView: 1 },
+    640: { slidesPerView: 2 },
+    1024: { slidesPerView: 3 },
+    1280: { slidesPerView: 4 },
+  }
+};
 
 const Home = () => {
   const favorites = getFavourites();
@@ -107,49 +190,10 @@ const Home = () => {
             <button className="swiper-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
               <FiChevronRight className="w-6 h-6" />
             </button>
-            <Swiper
-              modules={[Navigation, Virtual]}
-              lazy={true}
-              preloadImages={true}
-              watchSlidesVisibility={true}
-              watchSlidesProgress={true}
-              spaceBetween={24}
-              slidesPerView={4}
-              navigation={{
-                prevEl: '.swiper-button-prev',
-                nextEl: '.swiper-button-next',
-              }}
-              className="favorites-swiper px-12"
-              breakpoints={{
-                320: { slidesPerView: 1 },
-                640: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-                1280: { slidesPerView: 4 },
-              }}
-            >
+            <Swiper {...getSwiperOptions}>
               {favorites.map((product, index) => (
-                <SwiperSlide key={product.id} virtualIndex={index}>
-                  <div className="relative group">
-                    <div className="relative">
-                      <Link to={`/product/${product.id}`}>
-                        <LazyLoadImage
-                          src={product.image[0]}
-                          alt={product.name}
-                          loading="lazy"
-                          className="w-full aspect-[3/4] object-cover"                          
-                        />
-                      </Link>
-                      <button className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">
-                        <FiHeart className="w-5 h-5" />
-                      </button>
-                    </div>
-                    <div className="mt-4">
-                      <Link to={`/product/${product.id}`} className="block">
-                        <h3 className="text-sm font-medium">{product.name}</h3>
-                        <p className="mt-1 text-sm">${product.price}</p>
-                      </Link>
-                    </div>
-                  </div>
+                <SwiperSlide virtualIndex={index} key={product.id}>
+                  <SlideItem product={product} onFavClick={handleFavClick} />
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -164,49 +208,18 @@ const Home = () => {
           <div className="max-w-6xl mx-auto"> 
             <Swiper
               modules={[Navigation, Pagination]}
-              lazy={true}
-              preloadImages={true}
-              watchSlidesVisibility={true}
-              watchSlidesProgress={true}
+              lazy={{ loadPrevNext: true }}                            
               spaceBetween={30}
               slidesPerView={1}
               navigation={true}
               pagination={{ clickable: true }}
               className="testimonial-swiper"
             >
-              {testimonials.map((testimonial) => (
-                <SwiperSlide key={testimonial.id}>
-                  <div className="grid grid-cols-2 gap-16">
-                    <div className="flex flex-col justify-center">
-                      <div className="flex mb-4">
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <span key={i} className="text-yellow-400">★</span>
-                        ))}
-                      </div>
-                      <p className="text-xl mb-6">"{testimonial.text}"</p>
-                      <p className="text-sm text-gray-600">
-                        -- {testimonial.author},&nbsp;
-                        <Link 
-                          to={`/product/${testimonial.id}`}
-                          className="underline hover:text-black"
-                        >
-                          {testimonial.product}
-                        </Link>
-                      </p>
-                    </div>
-                    <div className="aspect-[3/4] overflow-hidden">
-                      <Link to={`/product/${testimonial.id}`}>
-                        <LazyLoadImage
-                          src={testimonial.image}
-                          alt={testimonial.product}
-                          loading="lazy"
-                          className="w-full h-full object-cover"                      
-                        />
-                      </Link>
-                    </div>
-                  </div>
+              {testimonials.map((testimonial, index) => (
+                <SwiperSlide virtualIndex={index} key={testimonial.id}>
+                  <TestimonialSlide testimonial={testimonial} />
                 </SwiperSlide>
-              ))}
+            ) )}
             </Swiper>
           </div>
         </div>
@@ -217,6 +230,7 @@ const Home = () => {
         <LazyLoadImage
           src="https://images.unsplash.com/photo-1523381294911-8d3cead13475"
           alt="Mission"
+          loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"          
         />
         <div className="relative bg-black bg-opacity-40">
