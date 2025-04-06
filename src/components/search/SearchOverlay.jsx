@@ -60,6 +60,7 @@ const SearchOverlay = ({ onClose }) => {
                   <img
                     src={category.image}
                     alt={category.title}
+                    loading="lazy"
                     className="h-full w-full object-cover object-center group-hover:opacity-75"
                   />
                 </div>

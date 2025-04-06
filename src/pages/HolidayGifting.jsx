@@ -12,6 +12,7 @@ const HolidayGifting = () => {
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1607083206968-13611ed3d814"
+            loading="lazy"
             alt="Holiday Gift Guide"
             className="w-full h-96 object-cover"
           />

@@ -9,6 +9,7 @@ const Sustainability = () => {
         <div className="absolute inset-0">
           <img
             src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09"
+            loading="lazy"
             alt="Sustainability Hero"
             className="h-full w-full object-cover"
           />
@@ -32,6 +33,7 @@ const Sustainability = () => {
             <div className="h-48 bg-gray-100 rounded-lg mb-6 flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b"
+                loading="lazy"
                 alt="Recycled Materials"
                 className="h-full w-full object-cover rounded-lg"
               />
@@ -60,6 +62,7 @@ const Sustainability = () => {
             <div className="h-48 bg-gray-100 rounded-lg mb-6 flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1527176930608-09cb256ab504"
+                loading="lazy"
                 alt="Zero Waste"
                 className="h-full w-full object-cover rounded-lg"
               />

@@ -32,10 +32,10 @@ export const Products = {
           "Made in Italy"
         ],
         image: [
-          "https://images.unsplash.com/photo-1434389677669-e08b4cac3105",
-          "https://images.unsplash.com/photo-1610288311735-39b7facbd095",
-          "https://images.unsplash.com/photo-1551163943-3f6a855d1153",
-          "https://images.unsplash.com/photo-1578587018452-892bacefd3f2"
+          "/images/products/pexels-cup-of-couple-6634909.webp",
+          "/images/products/pexels-ayoub-moukhliss-1262835-22944600.webp",
+          "/images/products/pexels-mutecevvil-18851697.webp",
+          "/images/products/pexels-a-darmel-8989569.webp"
         ],
         colors: ['Cream', 'Black', 'Navy', 'Camel'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -62,10 +62,10 @@ export const Products = {
           "Made in Portugal"
         ],
         image: [
-          "/images/products/marcel-strauss-Kv6NXMlNBVI-unsplash.jpg",
-          "/images/products/jed-cobourn-4wGLUcmZFc4-unsplash.jpg",
-          "/images/products/marcel-strauss-JiBaSCt8KDo-unsplash.jpg",
-          "/images/products/liz-weddon-GZW1FQuZFaY-unsplash.jpg"
+          "/images/products/marcel-strauss-Kv6NXMlNBVI-unsplash.webp",
+          "/images/products/jed-cobourn-4wGLUcmZFc4-unsplash.webp",
+          "/images/products/marcel-strauss-JiBaSCt8KDo-unsplash.webp",
+          "/images/products/liz-weddon-GZW1FQuZFaY-unsplash.webp"
           // "https://images.unsplash.com/photo-1551163943-3f6a855d1153"
         ],
         colors: ['Black', 'White', 'Navy', 'Gray'],
@@ -94,10 +94,10 @@ export const Products = {
           "Made in China"
         ],
         image: [
-          "/images/products/karsten-winegeart-5Y3pdONPEHE-unsplash.jpg",          
-          "/images/products/karsten-winegeart-5M7iCKfckQ8-unsplash.jpg",
-          "/images/products/karsten-winegeart-KUO2PwoAFRI-unsplash.jpg",
-          "/images/products/karsten-winegeart-G3TiavJKCpY-unsplash.jpg"
+          "/images/products/karsten-winegeart-5Y3pdONPEHE-unsplash.webp",          
+          "/images/products/karsten-winegeart-5M7iCKfckQ8-unsplash.webp",
+          "/images/products/karsten-winegeart-KUO2PwoAFRI-unsplash.webp",
+          "/images/products/karsten-winegeart-G3TiavJKCpY-unsplash.webp"
         ],
         colors: ['White', 'Black', 'Navy', 'Blush'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -253,15 +253,15 @@ export const Products = {
           "Made in Portugal"
         ],
         image: [
-          "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf",
-          "https://images.unsplash.com/photo-1603252109303-2751441dd157",
-          "https://images.unsplash.com/photo-1598032895397-b9472444bf93",
-          "https://images.unsplash.com/photo-1598033129183-c4f50c736f10"
+          "/images/products/pexels-ferartstudio-15445847.webp",
+          "/images/products/tim-hasse-dupe.webp",
+          "/images/products/raymond-petrik-HSOpItAokh4-unsplash.webp",
+          "/images/products/ivan-le-vv-zq0FgrZc-unsplash.webp"
         ],
         colors: ['White', 'Blue', 'Gray', 'Pink'],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         category: 'Shirts',
-        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS, Categories.FAVOURITES],
         rating: 4.7,
         reviews: 156,
         inStock: true,

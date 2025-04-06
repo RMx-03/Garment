@@ -38,6 +38,7 @@ const CartOverlay = ({ onClose }) => {
                       <img
                         src={item.image}
                         alt={item.name}
+                        loading="lazy"
                         className="h-full w-full object-cover object-center"
                       />
                     </div>

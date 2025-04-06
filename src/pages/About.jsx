@@ -8,6 +8,7 @@ const About = () => {
         <div className="absolute inset-0">
           <img
             src="https://img.freepik.com/free-photo/girl-yellow-wall-with-shopping-bags_1157-34351.jpg?t=st=1743157201~exp=1743160801~hmac=9fcb9100b990a0023f4663d11e4fdf88b18dcf1b7db8afeb9665a03b23e30707&w=1380"
+            loading="lazy"
             alt="About Hero"
             className="h-full w-full object-cover"
           />
@@ -71,6 +72,7 @@ const About = () => {
           <div>
             <img
               src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f"
+              loading="lazy"
               alt="Our Materials"
               className="w-full h-64 object-cover"
             />
@@ -79,6 +81,7 @@ const About = () => {
           <div>
             <img
               src="https://images.unsplash.com/photo-1441986300917-64674bd600d8"
+              loading="lazy"
               alt="Our Factories"
               className="w-full h-64 object-cover"
             />
@@ -87,6 +90,7 @@ const About = () => {
           <div>
             <img
               src="https://images.unsplash.com/photo-1523381294911-8d3cead13475"
+              loading="lazy"
               alt="Our Stores"
               className="w-full h-64 object-cover"
             />

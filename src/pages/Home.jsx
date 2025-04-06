@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Virtual } from 'swiper/modules';
 import { FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Hero from '../components/home/Hero';
 import CategoryGrid from '../components/home/CategoryGrid';
@@ -18,7 +18,7 @@ const testimonials = [
     text: "Love this shirt! Fits perfectly and the fabric is thick without being stiff.",
     author: "JonSnSF",
     product: "The Heavyweight Overshirt",
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"
+    image: "/images/products/pexels-ferartstudio-15445847.webp"
   },
   {
     id: 1,
@@ -26,48 +26,9 @@ const testimonials = [
     text: "Perfect fit and amazing quality. Will definitely buy more!",
     author: "EmmaB",
     product: "The Cloud Relaxed Cardigan",
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105"
+    image: "/images/products/pexels-cup-of-couple-6634909.webp"
   }
 ];
-
-// const favorites = [
-//   {
-//     name: "The Waffle Long-Sleeve Crew",
-//     price: 60,
-//     color: "Bone",
-//     image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2"
-//   },
-//   {
-//     name: "The Organic Cotton Turtleneck",
-//     price: 48,
-//     color: "Black",
-//     image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105"
-//   },
-//   {
-//     name: "The Cashmere Crew",
-//     price: 145,
-//     color: "Heather Gray",
-//     image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27"
-//   },
-//   {
-//     name: "The Performance Chino",
-//     price: 72,
-//     color: "Khaki",
-//     image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80"
-//   },
-//   {
-//     name: "The Wool Overcoat",
-//     price: 248,
-//     color: "Charcoal",
-//     image: "https://images.unsplash.com/photo-1544923246-77307dd654cb"
-//   },
-//   {
-//     name: "The Slim Fit Oxford",
-//     price: 64,
-//     color: "White",
-//     image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"
-//   }
-// ];
 
 const Home = () => {
   const favorites = getFavourites();
@@ -83,7 +44,7 @@ const Home = () => {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="relative">
               <LazyLoadImage
-                src="/images/products/glassesshop-fGTadsxRmTk-unsplash.jpg"
+                src="/images/products/glassesshop-fGTadsxRmTk-unsplash.webp"
                 alt="New Arrivals"
                 className="w-full h-96 object-cover"
               />
@@ -99,7 +60,7 @@ const Home = () => {
             
             <div className="relative">
               <LazyLoadImage
-                src="https://images.unsplash.com/photo-1483985988355-763728e1935b"
+                src="/images/products/kevin-laminto-0ZPlUMo2lis-unsplash.webp"
                 alt="Best Sellers"
                 className="w-full h-96 object-cover"
               />
@@ -115,7 +76,7 @@ const Home = () => {
             
             <div className="relative">
               <LazyLoadImage
-                src="/images/products/molly-archer-BTdHmE4jst8-unsplash.jpg"
+                src="/images/products/molly-archer-BTdHmE4jst8-unsplash.webp"
                 alt="Holiday Collection"
                 className="w-full h-96 object-cover"
               />
@@ -130,39 +91,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>      
-
-      {/* Garment Favorites */}
-      {/* <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-2">Garment Favorites</h2>
-          <p className="text-center text-gray-600 mb-8">
-            Beautifully Functional. Purposefully Designed. Consciously Crafted.
-          </p>
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={20}
-            slidesPerView={4}
-            navigation
-            className="favorites-swiper"
-          >
-            {favorites.map((item, index) => (
-              <SwiperSlide key={index}>
-                <div className="group">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-full aspect-w-1 aspect-h-1 object-cover mb-4"
-                  />
-                  <h3 className="text-sm text-gray-900">{item.name}</h3>
-                  <p className="text-sm text-gray-500">{item.color}</p>
-                  <p className="text-sm font-medium text-gray-900">${item.price}</p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section> */}
+      </section>     
       
       {/* Garment Favorites */}
       <section className="py-16">
@@ -179,7 +108,11 @@ const Home = () => {
               <FiChevronRight className="w-6 h-6" />
             </button>
             <Swiper
-              modules={[Navigation]}
+              modules={[Navigation, Virtual]}
+              lazy={true}
+              preloadImages={true}
+              watchSlidesVisibility={true}
+              watchSlidesProgress={true}
               spaceBetween={24}
               slidesPerView={4}
               navigation={{
@@ -194,16 +127,16 @@ const Home = () => {
                 1280: { slidesPerView: 4 },
               }}
             >
-              {favorites.map((product) => (
-                <SwiperSlide key={product.id}>
+              {favorites.map((product, index) => (
+                <SwiperSlide key={product.id} virtualIndex={index}>
                   <div className="relative group">
                     <div className="relative">
                       <Link to={`/product/${product.id}`}>
                         <LazyLoadImage
                           src={product.image[0]}
                           alt={product.name}
-                          className="w-full aspect-[3/4] object-cover"
-                          effect="blur"
+                          loading="lazy"
+                          className="w-full aspect-[3/4] object-cover"                          
                         />
                       </Link>
                       <button className="absolute top-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-sm hover:shadow-md transition-shadow">

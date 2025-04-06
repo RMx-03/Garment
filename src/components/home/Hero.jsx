@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="relative">
       <div className="absolute inset-0">
         <LazyLoadImage
-          src="/images/products/shalom-ejiofor-YLSBNapbXXY-unsplash.jpg"
+          src="/images/products/shalom-ejiofor-YLSBNapbXXY-unsplash.webp"
           alt="Hero"
           className="h-full w-full object-cover"
         />

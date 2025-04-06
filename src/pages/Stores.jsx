@@ -44,6 +44,7 @@ const Stores = () => {
               <div className="aspect-w-3 aspect-h-2 overflow-hidden">
                 <img
                   src={store.image}
+                  loading="lazy"
                   alt={store.name}
                   className="w-full h-full object-cover"
                 />

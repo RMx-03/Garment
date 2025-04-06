@@ -35,6 +35,7 @@ const ProductDetail = () => {
               <div key={index} className="aspect-w-1 aspect-h-1">
                 <img
                   src={img}
+                  loading="lazy"
                   alt={`${product.name} - View ${index + 1}`}
                   className="w-full h-full object-cover"
                 />

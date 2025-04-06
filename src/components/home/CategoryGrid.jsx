@@ -4,32 +4,32 @@ const categories = [
   {
     name: 'SHIRTS',
     href: '/category/shirts',
-    image: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf'
+    image: '/images/products/nimble-made-7RIMS-NMsbc-unsplash (1).webp'
   },
   {
     name: 'DENIM',
     href: '/category/denim',
-    image: 'https://images.unsplash.com/photo-1542272604-787c3835535d'
+    image: '/images/products/mnz-m1m2EZOZVwA-unsplash.webp'
   },
   {
     name: 'TEES',
     href: '/category/tees',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab'
+    image: '/images/products/tuananh-blue-imZPE5DJLKo-unsplash.webp'
   },
   {
     name: 'PANTS',
     href: '/category/pants',
-    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80'
+    image: '/images/products/pexels-pixabay-52518.webp'
   },
   {
     name: 'SWEATERS',
     href: '/category/sweaters',
-    image: 'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633'
+    image: '/images/products/pexels-nati-87264186-14641437.webp'
   },
   {
     name: 'OUTERWEAR',
     href: '/category/outerwear',
-    image: 'https://images.unsplash.com/photo-1544923246-77307dd654cb'
+    image: '/images/products/pexels-ahmet-arslan-1056407638-28773966.webp'
   }
 ];
 
@@ -48,6 +48,7 @@ const CategoryGrid = () => {
               <img
                 src={category.image}
                 alt={category.name}
+                loading="lazy"
                 className="h-64 w-full object-cover object-center group-hover:opacity-75"
               />
             </div>
