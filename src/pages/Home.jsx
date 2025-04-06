@@ -5,7 +5,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import { FiHeart, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Hero from '../components/home/Hero';
 import CategoryGrid from '../components/home/CategoryGrid';
-import { Products } from '../data/products';
+import { Products, getFavourites   } from '../data/products';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -13,17 +13,19 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const testimonials = [
   {
+    id: 6,
     rating: 5,
     text: "Love this shirt! Fits perfectly and the fabric is thick without being stiff.",
     author: "JonSnSF",
     product: "The Heavyweight Overshirt",
-    image: "https://images.unsplash.com/photo-1578587018452-892bacefd3f2"
+    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf"
   },
   {
+    id: 1,
     rating: 5,
     text: "Perfect fit and amazing quality. Will definitely buy more!",
     author: "EmmaB",
-    product: "The Organic Cotton Crew",
+    product: "The Cloud Relaxed Cardigan",
     image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105"
   }
 ];
@@ -68,10 +70,7 @@ const testimonials = [
 // ];
 
 const Home = () => {
-  const favorites = [
-    ...Products.women.filter(product => product.category === 'dresses'),
-    ...Products.men.filter(product => ['suits', 'formal'].includes(product.category))
-  ];
+  const favorites = getFavourites();
 
   return (
     <div>
@@ -182,7 +181,7 @@ const Home = () => {
             <Swiper
               modules={[Navigation]}
               spaceBetween={24}
-              slidesPerView={3}
+              slidesPerView={4}
               navigation={{
                 prevEl: '.swiper-button-prev',
                 nextEl: '.swiper-button-next',
@@ -214,7 +213,7 @@ const Home = () => {
                     <div className="mt-4">
                       <Link to={`/product/${product.id}`} className="block">
                         <h3 className="text-sm font-medium">{product.name}</h3>
-                        <p className="mt-1 text-sm">{product.price}</p>
+                        <p className="mt-1 text-sm">${product.price}</p>
                       </Link>
                     </div>
                   </div>
@@ -228,40 +227,50 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-8">People Are Talking</h2>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={30}
-            slidesPerView={1}
-            navigation
-            pagination={{ clickable: true }}
-            className="testimonial-swiper"
-          >
-            {testimonials.map((testimonial, index) => (
-              <SwiperSlide key={index}>
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="flex flex-col justify-center">
-                    <div className="flex mb-2">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <span key={i} className="text-yellow-400">★</span>
-                      ))}
+          <h2 className="text-2xl font-bold mb-16">People Are Talking</h2>
+          <div className="max-w-6xl mx-auto"> 
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation={true}
+              pagination={{ clickable: true }}
+              className="testimonial-swiper"
+            >
+              {testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.id}>
+                  <div className="grid grid-cols-2 gap-16">
+                    <div className="flex flex-col justify-center">
+                      <div className="flex mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <span key={i} className="text-yellow-400">★</span>
+                        ))}
+                      </div>
+                      <p className="text-xl mb-6">"{testimonial.text}"</p>
+                      <p className="text-sm text-gray-600">
+                        -- {testimonial.author},&nbsp;
+                        <Link 
+                          to={`/product/${testimonial.id}`}
+                          className="underline hover:text-black"
+                        >
+                          {testimonial.product}
+                        </Link>
+                      </p>
                     </div>
-                    <p className="text-xl mb-4">"{testimonial.text}"</p>
-                    <p className="text-sm text-gray-600">
-                      -- {testimonial.author}, {testimonial.product}
-                    </p>
+                    <div className="aspect-[3/4] overflow-hidden">
+                      <Link to={`/product/${testimonial.id}`}>
+                        <LazyLoadImage
+                          src={testimonial.image}
+                          alt={testimonial.product}
+                          className="w-full h-full object-cover"                      
+                        />
+                      </Link>
+                    </div>
                   </div>
-                  <div>
-                    <LazyLoadImage
-                      src={testimonial.image}
-                      alt={testimonial.product}
-                      className="w-full h-full object-cover"                      
-                    />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </section>
 
