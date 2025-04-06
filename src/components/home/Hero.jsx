@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Hero = () => {
   return (
     <div className="relative">
       <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1441986300917-64674bd600d8"
+        <LazyLoadImage
+          src="/images/products/shalom-ejiofor-YLSBNapbXXY-unsplash.jpg"
           alt="Hero"
           className="h-full w-full object-cover"
         />

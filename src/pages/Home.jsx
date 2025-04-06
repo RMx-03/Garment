@@ -71,7 +71,7 @@ const testimonials = [
 
 const Home = () => {
   const favorites = getFavourites();
-
+  
   return (
     <div>
       <Hero />
@@ -83,7 +83,7 @@ const Home = () => {
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
             <div className="relative">
               <LazyLoadImage
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d"
+                src="/images/products/glassesshop-fGTadsxRmTk-unsplash.jpg"
                 alt="New Arrivals"
                 className="w-full h-96 object-cover"
               />
@@ -115,7 +115,7 @@ const Home = () => {
             
             <div className="relative">
               <LazyLoadImage
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d"
+                src="/images/products/molly-archer-BTdHmE4jst8-unsplash.jpg"
                 alt="Holiday Collection"
                 className="w-full h-96 object-cover"
               />

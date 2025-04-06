@@ -62,10 +62,11 @@ export const Products = {
           "Made in Portugal"
         ],
         image: [
-          "https://images.unsplash.com/photo-1576566588028-4147f3842f27",
-          "https://images.unsplash.com/photo-1551048632-6bd616c4b49e",
-          "https://images.unsplash.com/photo-1543087903-1ac2ec7aa8c5",
-          "https://images.unsplash.com/photo-1551163943-3f6a855d1153"
+          "/images/products/marcel-strauss-Kv6NXMlNBVI-unsplash.jpg",
+          "/images/products/jed-cobourn-4wGLUcmZFc4-unsplash.jpg",
+          "/images/products/marcel-strauss-JiBaSCt8KDo-unsplash.jpg",
+          "/images/products/liz-weddon-GZW1FQuZFaY-unsplash.jpg"
+          // "https://images.unsplash.com/photo-1551163943-3f6a855d1153"
         ],
         colors: ['Black', 'White', 'Navy', 'Gray'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
@@ -93,15 +94,15 @@ export const Products = {
           "Made in China"
         ],
         image: [
-          "https://images.unsplash.com/photo-1598554747436-c9293d6a588f",
-          "https://images.unsplash.com/photo-1602810319428-019690571b5b",
-          "https://images.unsplash.com/photo-1598554747212-9d26c0e2f819",
-          "https://images.unsplash.com/photo-1598554747118-3c7be5a8b414"
+          "/images/products/karsten-winegeart-5Y3pdONPEHE-unsplash.jpg",          
+          "/images/products/karsten-winegeart-5M7iCKfckQ8-unsplash.jpg",
+          "/images/products/karsten-winegeart-KUO2PwoAFRI-unsplash.jpg",
+          "/images/products/karsten-winegeart-G3TiavJKCpY-unsplash.jpg"
         ],
         colors: ['White', 'Black', 'Navy', 'Blush'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Tops',
-        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS, Categories.FAVOURITES],
         rating: 4.7,
         reviews: 89,
         inStock: true,
