@@ -228,7 +228,7 @@ const Home = () => {
       {/* Mission Statement */}
       <section className="relative py-24">
         <LazyLoadImage
-          src="https://images.unsplash.com/photo-1523381294911-8d3cead13475"
+          src="/images/products/hendrik-morkel-xccjtrOXJ7k-unsplash.webp"
           alt="Mission"
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover"          
