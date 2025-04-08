@@ -1,10 +1,9 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import Layout from './components/layout/Layout';
 
-
+// Lazy-loaded pages
 const Home = lazy(() => import('./pages/Home'));
 const Stores = lazy(() => import('./pages/Stores'));
 const ProductListing = lazy(() => import('./pages/ProductListing'));
@@ -22,7 +21,7 @@ const Sustainability = lazy(() => import('./pages/Sustainability'));
 const Careers = lazy(() => import('./pages/Careers'));
 const GiftCard = lazy(() => import('./pages/GiftCard'));
 
-
+// Fallback while loading lazy components
 const LoadingFallback = () => (
   <div className="min-h-screen flex items-center justify-center">
     <div className="animate-pulse">
@@ -35,33 +34,30 @@ function App() {
   return (
     <CartProvider>
       <Router>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow pt-16">
-            <Suspense fallback={<LoadingFallback />}>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/stores" element={<Stores />} />
-                <Route path="/men/*" element={<ProductListing category="men" />} />
-                <Route path="/women/*" element={<ProductListing category="women" />} />
-                <Route path="/product/:id" element={<ProductDetail />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/holiday" element={<HolidayGifting />} />
-                <Route path="/new" element={<NewArrivals />} />
-                <Route path="/best-sellers" element={<BestSellers />} />
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/checkout/success" element={<CheckoutSuccess />} />
-                <Route path="/sustainability" element={<Sustainability />} />
-                <Route path="/careers" element={<Careers />} />
-                <Route path="/gift-card" element={<GiftCard />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </main>
-          <Footer />
-        </div>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes>
+            {/* Layout wraps all pages that share Header/Footer */}
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="stores" element={<Stores />} />
+              <Route path="men/*" element={<ProductListing category="men" />} />
+              <Route path="women/*" element={<ProductListing category="women" />} />
+              <Route path="product/:id" element={<ProductDetail />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="about" element={<About />} />
+              <Route path="holiday" element={<HolidayGifting />} />
+              <Route path="new" element={<NewArrivals />} />
+              <Route path="best-sellers" element={<BestSellers />} />
+              <Route path="checkout" element={<Checkout />} />
+              <Route path="checkout/success" element={<CheckoutSuccess />} />
+              <Route path="sustainability" element={<Sustainability />} />
+              <Route path="careers" element={<Careers />} />
+              <Route path="gift-card" element={<GiftCard />} />
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Routes>
+        </Suspense>
       </Router>
     </CartProvider>
   );
