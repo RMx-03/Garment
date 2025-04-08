@@ -10,12 +10,13 @@ const Hero = () => {
           alt="Hero"
           className="h-full w-full object-cover"
         />
+        <div className="absolute inset-0 bg-black bg-opacity-20" />
       </div>
-      <div className="relative mx-auto max-w-7xl py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl py-24 px-4 sm:py-32 sm:px-6 lg:px-8 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
           Your Cozy Era
         </h1>
-        <p className="mt-6 max-w-lg text-xl text-white">
+        <p className="mt-6 max-w-lg mx-auto text-xl text-white">
           Get peak comfy-chic with new winter essentials.
         </p>
         <div className="mt-10">
