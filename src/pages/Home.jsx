@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { lazy, Suspense, suspense, useCallback } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Virtual } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import Hero from '../components/home/Hero';
 import CategoryGrid from '../components/home/CategoryGrid';
 import FeaturedCollections from '../components/home/FeaturedCollections';
-import SlideItem from '../components/home/SlideItem';
-import TestimonialSlide from '../components/home/TestimonialSlide';
-import MissionSection from '../components/home/MissionSection';
 import { getFavourites } from '../data/products';
 import testimonials from '../data/testimonials' 
+
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+const SlideItem = lazy(() => import('../components/home/SlideItem'))
+const TestimonialSlide = lazy(() => import('../components/home/TestimonialSlide'))
+const MissionSection = lazy(() => import('../components/home/MissionSection'))
 
 const getSwiperOptions = {
   modules: [Navigation, Virtual],
@@ -35,10 +36,14 @@ const getSwiperOptions = {
 
 const Home = () => {
   const favorites = getFavourites();
-  const handleFavClick = (product) => {
-    console.log('Fav clicked for:', product.name);
-  };
-    
+
+  const handleFavClick = useCallback(
+    debounce((product) => {
+      console.log('Fav clicked for:', product.name);
+    }, 300),
+    []
+  );
+
   return (
     <div>
       <Hero />
@@ -59,13 +64,15 @@ const Home = () => {
             <button className="swiper-button-next absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
               <FiChevronRight className="w-6 h-6" />
             </button>
-            <Swiper {...getSwiperOptions}>
-              {favorites.map((product, index) => (
-                <SwiperSlide virtualIndex={index} key={product.id}>
-                  <SlideItem product={product} onFavClick={handleFavClick} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <Suspense fallback={<div>loading...</div>}>  
+              <Swiper {...getSwiperOptions}>
+                {favorites.map((product, index) => (
+                  <SwiperSlide virtualIndex={index} key={product.id}>
+                    <SlideItem product={product} onFavClick={handleFavClick} />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </Suspense>
           </div>
         </div>
       </section>
@@ -75,28 +82,40 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold mb-16">People Are Talking</h2>
           <div className="max-w-6xl mx-auto"> 
-            <Swiper
-              modules={[Navigation, Pagination]}
-              lazy={{ loadPrevNext: true }}                            
-              spaceBetween={30}
-              slidesPerView={1}
-              navigation={true}
-              pagination={{ clickable: true }}
-              className="testimonial-swiper"
-            >
-              {testimonials.map((testimonial, index) => (
-                <SwiperSlide virtualIndex={index} key={testimonial.id}>
-                  <TestimonialSlide testimonial={testimonial} />
-                </SwiperSlide>
-            ) )}
-            </Swiper>
+            <Suspense fallback={<div>loading...</div>}>
+              <Swiper
+                modules={[Navigation, Pagination]}
+                lazy={{ loadPrevNext: true }}                            
+                spaceBetween={30}
+                slidesPerView={1}
+                navigation={true}
+                pagination={{ clickable: true }}
+                className="testimonial-swiper"
+              >
+                {testimonials.map((testimonial, index) => (
+                  <SwiperSlide virtualIndex={index} key={testimonial.id}>
+                    <TestimonialSlide testimonial={testimonial} />
+                  </SwiperSlide>
+              ) )}
+              </Swiper>
+            </Suspense>
           </div>
         </div>
       </section>
 
-      <MissionSection />
+      <Suspense fallback={<div>loading...</div>}>
+        <MissionSection />
+      </Suspense>
     </div>
   );
 };
 
 export default Home;
+
+function debounce(func, wait) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
