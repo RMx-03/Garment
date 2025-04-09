@@ -26,7 +26,7 @@ const TestimonialSlide = ({ testimonial }) => (
         <LazyLoadImage
           src={testimonial.image}
           alt={testimonial.product}
-          loading="lazy"
+          loading="eager"
           className="w-full h-full object-cover"
         />
       </Link>

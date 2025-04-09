@@ -48,7 +48,7 @@ const CategoryGrid = () => {
               <img
                 src={category.image}
                 alt={category.name}
-                loading="lazy"
+                loading="eager"
                 className="h-64 w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300"
               />
             </div>

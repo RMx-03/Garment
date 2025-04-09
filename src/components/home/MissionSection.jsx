@@ -7,7 +7,7 @@ const MissionSection = () => (
     <LazyLoadImage
       src="/images/products/hendrik-morkel-xccjtrOXJ7k-unsplash.webp"
       alt="Mission"
-      loading="lazy"
+      loading="eager"
       className="absolute inset-0 w-full h-full object-cover"
     />
     <div className="relative bg-black bg-opacity-40">

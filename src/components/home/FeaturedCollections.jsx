@@ -35,6 +35,7 @@ const FeaturedCollections = () => (
             <LazyLoadImage
               src={item.image}
               alt={item.alt}
+              loading="eager"
               className="w-full h-96 object-cover transition-transform duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 transition-colors duration-300 group-hover:bg-opacity-40">

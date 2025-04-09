@@ -10,7 +10,7 @@ const SlideItem = ({ product, onFavClick }) => (
         <LazyLoadImage
           src={product.image[0]}
           alt={product.name}
-          loading="lazy"
+          loading="eager"
           className="w-full aspect-[3/4] object-cover"
         />
       </Link>

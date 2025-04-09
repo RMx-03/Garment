@@ -8,7 +8,8 @@ const Hero = () => {
         <LazyLoadImage
           src="/images/products/shalom-ejiofor-YLSBNapbXXY-unsplash.webp"
           alt="Hero"
-          className="h-full w-full object-cover"
+          loading="eager"
+          className="h-full w-full object-cover"          
         />
         <div className="absolute inset-0 bg-black bg-opacity-20" />
       </div>
