@@ -157,10 +157,10 @@ export const Products = {
           "Made in USA"
         ],
         image: [
-          "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
-          "https://images.unsplash.com/photo-1475178626620-a4d074967452",
-          "https://images.unsplash.com/photo-1541099649105-f69ad21f3246",
-          "https://images.unsplash.com/photo-1475178626620-a4d074967452"
+          "/images/products/nastia-kardash-dupe.webp",
+          "/images/products/nastia-kardash-dupe (1).webp",
+          "/images/products/ashley-singerling-dupe.webp",
+          "/images/products/mariana-ramalho-dupe.webp"
         ],
         colors: ['Light Wash', 'Medium Wash', 'Dark Wash', 'Black'],
         sizes: ['24', '25', '26', '27', '28', '29', '30', '31', '32'],

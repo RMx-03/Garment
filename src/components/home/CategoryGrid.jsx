@@ -4,7 +4,7 @@ const categories = [
   {
     name: 'SHIRTS',
     href: '/category/shirts',
-    image: '/images/products/nimble-made-7RIMS-NMsbc-unsplash (1).webp',
+    image: '/images/products/nimble-made-7RIMS-NMsbc-unsplash1-ezgif.com-optiwebp.webp',
   },
   {
     name: 'DENIM',
@@ -29,7 +29,7 @@ const categories = [
   {
     name: 'OUTERWEAR',
     href: '/category/outerwear',
-    image: '/images/products/pexels-ahmet-arslan-1056407638-28773966.webp',
+    image: '/images/products/pexels-ahmet-arslan-1056407638-28773966-optimized.webp',
   },
 ];
 
