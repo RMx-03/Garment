@@ -1,8 +1,8 @@
-import React from 'react';
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import OptimizedImage from '../common/OptimizedImage';
 
-const TestimonialSlide = ({ testimonial }) => (
+const TestimonialSlide = memo(({ testimonial }) => (
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
     <div>
       <div className="flex mb-4">
@@ -21,28 +21,21 @@ const TestimonialSlide = ({ testimonial }) => (
         </Link>
       </p>
     </div>
-    <div className="aspect-[3/4] overflow-hidden">
+    <div className="aspect-w-3 aspect-h-4 overflow-hidden rounded-lg">
       <Link to={`/product/${testimonial.id}`}>
-        <LazyLoadImage
+        <OptimizedImage
           src={testimonial.image}
-          alt={testimonial.product}
-          loading="eager"
-          className="w-full h-full object-cover"
+          alt={`${testimonial.author} wearing ${testimonial.product}`}
+          className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+          width={600}
+          height={800}
+          loading="lazy"
         />
       </Link>
     </div>
   </div>
-);
+));
 
-const areEqual = (prevProps, nextProps) => {
-  return (
-    prevProps.testimonial.id === nextProps.testimonial.id &&
-    prevProps.testimonial.text === nextProps.testimonial.text &&
-    prevProps.testimonial.rating === nextProps.testimonial.rating &&
-    prevProps.testimonial.image === nextProps.testimonial.image &&
-    prevProps.testimonial.author === nextProps.testimonial.author &&
-    prevProps.testimonial.product === nextProps.testimonial.product
-  );
-};
+TestimonialSlide.displayName = 'TestimonialSlide';
 
-export default React.memo(TestimonialSlide, areEqual);
+export default TestimonialSlide;

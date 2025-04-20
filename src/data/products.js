@@ -9,8 +9,7 @@ export const Categories = {
     SHOES: 'shoes',
     DRESSES: 'dresses',
     SUITS: 'suits',
-    FORMAL: 'formal',
-    FAVOURITES: 'favourites',
+    FORMAL: 'formal'
 };
 
 export const Products = {
@@ -40,7 +39,7 @@ export const Products = {
         colors: ['Cream', 'Black', 'Navy', 'Camel'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Sweaters',
-        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS, Categories.FAVOURITES],
+        categories: [Categories.HOLIDAY_GIFTING, Categories.BEST_SELLERS],
         rating: 4.8,
         reviews: 156,
         inStock: true,
@@ -102,7 +101,7 @@ export const Products = {
         colors: ['White', 'Black', 'Navy', 'Blush'],
         sizes: ['XS', 'S', 'M', 'L', 'XL'],
         category: 'Tops',
-        categories: [Categories.NEW_ARRIVALS, Categories.TOPS, Categories.FAVOURITES],
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
         rating: 4.7,
         reviews: 89,
         inStock: true,
@@ -165,7 +164,7 @@ export const Products = {
         colors: ['Light Wash', 'Medium Wash', 'Dark Wash', 'Black'],
         sizes: ['24', '25', '26', '27', '28', '29', '30', '31', '32'],
         category: 'Pants',
-        categories: [Categories.PANTS, Categories.BEST_SELLERS, Categories.FAVOURITES],
+        categories: [Categories.PANTS, Categories.BEST_SELLERS],
         rating: 4.8,
         reviews: 324,
         inStock: true,
@@ -261,7 +260,7 @@ export const Products = {
         colors: ['White', 'Blue', 'Gray', 'Pink'],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         category: 'Shirts',
-        categories: [Categories.NEW_ARRIVALS, Categories.TOPS, Categories.FAVOURITES],
+        categories: [Categories.NEW_ARRIVALS, Categories.TOPS],
         rating: 4.7,
         reviews: 156,
         inStock: true,
@@ -316,19 +315,12 @@ export const getNewArrivals = () => {
 
 export const getBestSellers = () => {
     const allProducts = [...Products.women, ...Products.men];
-    return allProducts
-        .filter(product => product.categories?.includes(Categories.BEST_SELLERS))
-        .sort((a, b) => b.rating - a.rating);
+    return allProducts.filter(product => 
+      product.categories?.includes(Categories.BEST_SELLERS)
+    );
 };
 
 export const getHolidayGifts = () => {
     const allProducts = [...Products.women, ...Products.men];
     return allProducts.filter(product => product.categories?.includes(Categories.HOLIDAY_GIFTING));
-};
-
-export const getFavourites = () => {
-    const allProducts = [...Products.women, ...Products.men];
-    return allProducts.filter(product => 
-      product.categories?.includes(Categories.FAVOURITES)
-    );
 };

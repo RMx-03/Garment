@@ -11,7 +11,7 @@ const Header = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);  
   const { getCartCount } = useCart(); 
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  // const isHomePage = location.pathname === '/';
 
 
 
@@ -130,7 +130,7 @@ const Header = () => {
             </div>
           )}
 
-          {/* Secondary Navigation - Only shown on homepage */}
+          {/* Secondary Navigation - Only shown on homepage
           {isHomePage && (
             <div className="border-t border-gray-200">
               <div className="flex justify-center space-x-8 py-3">
@@ -145,7 +145,7 @@ const Header = () => {
                 <Link to="/sale" className="text-sm text-red-600 hover:text-red-700">Sale</Link>
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </nav>
 
