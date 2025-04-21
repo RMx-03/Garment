@@ -108,7 +108,7 @@ const Header = () => {
 
             {/* Logo */}
             <div className="flex-shrink-0">
-              <Link to="/" className={`text-2xl font-bold ${logoColorClass}`} aria-label="Garments home">
+              <Link to="/" className={`prata-regular text-2xl font-bold ${logoColorClass}`} aria-label="Garments home">
                 GARMENTS
               </Link>
             </div>

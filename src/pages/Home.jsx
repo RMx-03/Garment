@@ -3,6 +3,7 @@ import { LazyMotion, domAnimation, m } from 'framer-motion';
 
 // Lazy-loaded components
 const Hero = lazy(() => import('../components/home/Hero'));
+const Marquee = lazy(() => import('../components/home/Marquee'));
 const CategoryGrid = lazy(() => import('../components/home/CategoryGrid'));
 const FeaturedCollections = lazy(() => import('../components/home/FeaturedCollections'));
 const MissionSection = lazy(() => import('../components/home/MissionSection'));
@@ -32,11 +33,19 @@ const Home = () => {
         </Suspense>
         
         <Suspense fallback={<LoadingPlaceholder />}>
-          <CategoryGrid />
-        </Suspense>
+          <Marquee />
+        </Suspense>      
         
         <Suspense fallback={<LoadingPlaceholder />}>
           <FeaturedCollections />
+        </Suspense>
+
+        <Suspense fallback={<LoadingPlaceholder />}>
+          <Marquee />
+        </Suspense>
+
+        <Suspense fallback={<LoadingPlaceholder />}>
+          <CategoryGrid />
         </Suspense>
 
         <Suspense fallback={<LoadingPlaceholder />}>

@@ -1,6 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Outfit:wght@100..900&family=Prata&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.outfit-regular {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.londrina-outline-regular {
+  font-family: "Londrina Outline", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 /* Base performance optimizations */
 * {
