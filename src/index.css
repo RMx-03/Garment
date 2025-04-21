@@ -147,44 +147,71 @@ img {
 
 /* Custom Swiper Styles */
 .testimonial-swiper {
-  padding: 0 60px !important;
-  margin-bottom: 40px !important;
+  padding: 0 40px !important;
+  margin: 0 -20px 40px !important;
 }
 
-.testimonial-swiper .swiper-button-next,
-.testimonial-swiper .swiper-button-prev {
+.testimonial-swiper .slick-slide {
+  padding: 10px;
+}
+
+.testimonial-swiper .slick-prev,
+.testimonial-swiper .slick-next {
   width: 40px !important;
   height: 40px !important;
   background-color: white !important;
   border-radius: 50% !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  z-index: 10 !important;
+  transition: all 0.3s ease !important;
 }
 
-.testimonial-swiper .swiper-button-next:after,
-.testimonial-swiper .swiper-button-prev:after {
-  font-size: 16px !important;
-  color: #000 !important;
+.testimonial-swiper .slick-prev:hover,
+.testimonial-swiper .slick-next:hover {
+  background-color: #f8f8f8 !important;
+  transform: scale(1.05) !important;
 }
 
-.testimonial-swiper .swiper-button-next {
-  right: 0 !important;
+.testimonial-swiper .slick-prev:before,
+.testimonial-swiper .slick-next:before {
+  font-size: 20px !important;
+  color: #333 !important;
+  opacity: 0.8 !important;
 }
 
-.testimonial-swiper .swiper-button-prev {
+.testimonial-swiper .slick-prev {
   left: 0 !important;
 }
 
-.testimonial-swiper .swiper-pagination {
-  bottom: 0 !important;
+.testimonial-swiper .slick-next {
+  right: 0 !important;
 }
 
-.testimonial-swiper .swiper-pagination-bullet {
-  width: 8px !important;
-  height: 8px !important;
-  background-color: #000 !important;
-  opacity: 0.2 !important;
+.testimonial-swiper .slick-dots {
+  bottom: -30px !important;
 }
 
-.testimonial-swiper .swiper-pagination-bullet-active {
+.testimonial-swiper .slick-dots li button:before {
+  font-size: 8px !important;
+  color: #333 !important;
+  opacity: 0.3 !important;
+  transition: all 0.3s ease !important;
+}
+
+.testimonial-swiper .slick-dots li.slick-active button:before {
   opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+  .testimonial-swiper {
+    padding: 0 20px !important;
+  }
+  
+  .testimonial-swiper .slick-prev {
+    left: -10px !important;
+  }
+  
+  .testimonial-swiper .slick-next {
+    right: -10px !important;
+  }
 }

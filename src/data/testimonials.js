@@ -1,20 +1,26 @@
-const testimonials = [
-    {
-      id: 6,
-      rating: 5,
-      text: "Love this shirt! Fits perfectly and the fabric is thick without being stiff.",
-      author: "JonSnSF",
-      product: "The Heavyweight Overshirt",
-      image: "/images/products/pexels-ferartstudio-15445847.webp"
-    },
+export const testimonials = [
     {
       id: 1,
-      rating: 5,
-      text: "Perfect fit and amazing quality. Will definitely buy more!",
-      author: "EmmaB",
-      product: "The Cloud Relaxed Cardigan",
-      image: "/images/products/pexels-cup-of-couple-6634909.webp"
+      name: "Jennie Ruby",
+      role: "A singer from South Korea",
+      image: "https://randomuser.me/api/portraits/women/1.jpg",
+      text: "I really like this brand, the design looks elegant and very comfortable to wear, and I often wear it.",
+      rating: 5
+    },
+    {
+      id: 2,
+      name: "Yoo Jimin",
+      role: "A singer from South Korea",
+      image: "https://randomuser.me/api/portraits/women/2.jpg",
+      text: "I like this brand, this brand always keeps up with the times and the models are not marketable look exclusive",
+      rating: 5
+    },
+    {
+      id: 3,
+      name: "Shin Ryujin",
+      role: "A singer from South Korea",
+      image: "https://randomuser.me/api/portraits/women/3.jpg",
+      text: "All the materials used are very comfortable and look very good when worn.",
+      rating: 5
     }
-];
-
-export default testimonials;
+  ];
