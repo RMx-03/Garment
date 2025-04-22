@@ -60,10 +60,10 @@ const CartOverlay = memo(({ isOpen, onClose }) => {
       />
       
       {/* Cart panel */}
-      <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 z-[101]">
+      <div className="fixed inset-y-0 right-0 flex max-w-full pl-0 z-[101] h-screen">
         <div 
           ref={overlayRef}
-          className={`w-screen max-w-md transform transition-transform duration-300 ease-out bg-white shadow-xl ${
+          className={`w-screen max-w-md transform transition-transform duration-300 ease-out bg-white shadow-xl h-screen flex flex-col ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
@@ -81,49 +81,47 @@ const CartOverlay = memo(({ isOpen, onClose }) => {
           </div>
 
           {/* Cart content */}
-          <div className="flex flex-col h-[calc(100vh-80px)] bg-white">
-            <div className="flex-1 overflow-y-auto">
-              {cartItems.length === 0 ? (
-                <div className="flex flex-col items-center justify-center h-full">
-                  <p className="text-gray-500 text-lg">Your cart is empty</p>
-                </div>
-              ) : (
-                <div className="p-4 space-y-4">
-                  {cartItems.map((item) => (
-                    <CartItem
-                      key={`${item.id}-${item.size}-${item.color}`}
-                      item={item}
-                      onRemove={handleRemoveItem}
-                      onUpdateQuantity={handleUpdateQuantity}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="border-t border-gray-200 p-4 mt-auto bg-white">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-base">Subtotal</span>
-                  <span className="text-base">${subtotal.toFixed(2)}</span>
-                </div>
-                <p className="text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                <Link
-                  to="/checkout"
-                  onClick={onClose}
-                  className="block w-full py-3 px-4 rounded bg-black text-white text-center hover:bg-gray-900 transition-colors"
-                >
-                  Checkout
-                </Link>
-                <button
-                  type="button"
-                  className="block w-full text-center text-gray-900 hover:text-gray-600 transition-colors"
-                  onClick={onClose}
-                >
-                  Continue Shopping
-                </button>
+          <div className="flex-1 overflow-y-auto">
+            {cartItems.length === 0 ? (
+              <div className="flex flex-col items-center justify-center h-full">
+                <p className="text-gray-500 text-lg">Your cart is empty</p>
               </div>
+            ) : (
+              <div className="p-4 space-y-4">
+                {cartItems.map((item) => (
+                  <CartItem
+                    key={`${item.id}-${item.size}-${item.color}`}
+                    item={item}
+                    onRemove={handleRemoveItem}
+                    onUpdateQuantity={handleUpdateQuantity}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Footer */}
+          <div className="border-t border-gray-200 p-4 bg-white">
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-base">Subtotal</span>
+                <span className="text-base">${subtotal.toFixed(2)}</span>
+              </div>
+              <p className="text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+              <Link
+                to="/checkout"
+                onClick={onClose}
+                className="block w-full py-3 px-4 rounded bg-black text-white text-center hover:bg-gray-900 transition-colors"
+              >
+                Checkout
+              </Link>
+              <button
+                type="button"
+                className="block w-full text-center text-gray-900 hover:text-gray-600 transition-colors"
+                onClick={onClose}
+              >
+                Continue Shopping
+              </button>
             </div>
           </div>
         </div>

@@ -90,24 +90,24 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto">
 
         <div className="relative flex flex-col md:flex-row items-center md:items-start justify-between gap-6 text-left mb-12 md:mb-16 md:px-12">
-          <h1 className="londrina-outline-regular pl-12 hidden md:block absolute top-1 md:top-4 left-0 text-[10rem] font-extrabold text-[#FF6B6B]  pointer-events-none select-none z-0">
+          <h1 className="londrina-outline-regular pl-4 md:pl-12 absolute top-6 md:top-12 left-22 md:left-0 text-6xl md:text-[8rem] lg:text-[10rem] font-extrabold text-[#FF6B6B]  pointer-events-none select-none z-0">
             Testimonials
           </h1>
           {/* heading section */}
-          <div className="flex flex-col md:items-start items-center">
+          <div className="flex flex-col items-center md:items-start ">
             <div className="flex items-center gap-2">
-              <span className="h-20 border-l-2 border-[#FF6B6B]"></span>
+              <span className="hidden md:block h-20 border-l-2 border-[#FF6B6B]"></span>
               <h2 className="font-['Playfair_Display'] font-extrabold text-3xl md:text-5xl text-gray-900">
                 Our Customer
               </h2>
               <span className="text-[#FF6B6B] text-2xl md:text-3xl">✦</span>
             </div>
-              <h2 className="lg:hidden pl-3 font-['Playfair_Display'] font-extrabold text-3xl md:text-5xl text-gray-900">
+              {/* <h2 className="lg:hidden pl-3 font-['Playfair_Display'] font-extrabold text-3xl md:text-5xl text-gray-900">
                 Testimonials
-              </h2>              
+              </h2> */}
           </div>
-          <div className="max-w-md">
-            <p className="outfit-regular text-gray-500 text-base pt-8 md:text-lg font-['Inter'] max-w-2xl mx-auto">
+          <div className="max-w-sm">
+            <p className="outfit-regular text-center text-gray-500 text-base pt-8 md:text-lg font-['Inter'] max-w-2xl mx-auto">
               Our brand is very trusted, you can see from some of the reviews of our customers.
             </p>
           </div>

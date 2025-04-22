@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { memo } from 'react';
 import { OptimizedImage } from '../common/OptimizedImage';
 
-const ScrollIndicator = () => (
+const ScrollIndicator = memo(() => (
   <motion.div
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
@@ -20,9 +21,35 @@ const ScrollIndicator = () => (
       </motion.div>
     </div>
   </motion.div>
-);
+));
 
-const Hero = () => {
+ScrollIndicator.displayName = 'ScrollIndicator';
+
+const HeroContent = memo(() => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8 }}
+    className="max-w-3xl mx-auto"
+  >
+    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
+      Your Cozy Era
+    </h1>
+    <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-xl mx-auto">
+      Get peak comfy-chic with new winter essentials.
+    </p>
+    <Link
+      to="/shop"
+      className="inline-block bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
+    >
+      SHOP NOW
+    </Link>
+  </motion.div>
+));
+
+HeroContent.displayName = 'HeroContent';
+
+const Hero = memo(() => {
   return (
     <section className="relative min-h-screen w-full overflow-hidden">
       {/* Background Image */}
@@ -41,30 +68,14 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative min-h-screen flex items-center justify-center text-center px-4 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto"
-        >
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
-            Your Cozy Era
-          </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-xl mx-auto">
-            Get peak comfy-chic with new winter essentials.
-          </p>
-          <Link
-            to="/shop"
-            className="inline-block bg-white px-8 py-3 text-base font-medium text-gray-900 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105"
-          >
-            SHOP NOW
-          </Link>
-        </motion.div>
+        <HeroContent />
       </div>
 
       <ScrollIndicator />
     </section>
   );
-};
+});
+
+Hero.displayName = 'Hero';
 
 export default Hero;

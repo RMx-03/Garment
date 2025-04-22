@@ -1,8 +1,9 @@
 import { useLocation } from 'react-router-dom';
+import { memo } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 
-const Layout = ({ children }) => {
+const Layout = memo(({ children }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -15,6 +16,8 @@ const Layout = ({ children }) => {
       <Footer />
     </div>
   );
-};
+});
+
+Layout.displayName = 'Layout';
 
 export default Layout;
