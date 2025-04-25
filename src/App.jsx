@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Layout from './components/layout/Layout';
+import Loader from './components/loader/Loader';
 
 // Lazy-loaded pages with prefetch hints
 const Home = lazy(() => import('./pages/Home'));
@@ -20,36 +21,6 @@ const CheckoutSuccess = lazy(() => import('./pages/CheckoutSuccess'));
 const Sustainability = lazy(() => import('./pages/Sustainability'));
 const Careers = lazy(() => import('./pages/Careers'));
 const GiftCard = lazy(() => import('./pages/GiftCard'));
-
-// Enhanced loading fallback with progress indicator
-const LoadingFallback = () => {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((oldProgress) => {
-        const diff = Math.random() * 10;
-        return Math.min(oldProgress + diff, 90);
-      });
-    }, 100);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden">
-        <div 
-          className="h-full bg-blue-600 rounded-full transition-all duration-300 ease-out"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-      <p className="mt-4 text-gray-600">Loading...</p>
-    </div>
-  );
-};
 
 // ScrollToTop component to handle smooth scrolling on route changes
 const ScrollToTop = () => {
@@ -71,7 +42,7 @@ function App() {
       <Router>
         <ScrollToTop />
         <Layout>
-          <Suspense fallback={<LoadingFallback />}>
+          <Suspense fallback={<Loader text="GARMENTS" spinDuration={8} />}>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/stores" element={<Stores />} />

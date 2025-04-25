@@ -1,5 +1,6 @@
 import { lazy, Suspense, memo } from 'react';
 import { LazyMotion, domAnimation, m } from 'framer-motion';
+import Loader from '../components/loader/Loader';
 
 // Lazy-loaded components
 const Hero = lazy(() => import('../components/home/Hero'));
@@ -8,13 +9,7 @@ const CategoryGrid = lazy(() => import('../components/home/CategoryGrid'));
 const FeaturedCollections = lazy(() => import('../components/home/FeaturedCollections'));
 const MissionSection = lazy(() => import('../components/home/MissionSection'));
 const TestimonialSection = lazy(() => import('../components/home/TestimonialSection'));
-
-// Loading placeholder
-const LoadingPlaceholder = memo(({ height = "h-96" }) => (
-  <div className={`${height} animate-pulse bg-gray-100 rounded-lg`} />
-));
-
-LoadingPlaceholder.displayName = 'LoadingPlaceholder';
+const ParallaxMarquee = lazy(() => import('../components/home/ParallexMarquee'));
 
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
@@ -27,9 +22,10 @@ const pageTransition = {
 const HomeContent = memo(() => (
   <>
     <Hero />
-    <Marquee />
+    <ParallaxMarquee />    
     <FeaturedCollections />
-    <Marquee />
+    
+    {/* <Marquee /> */}
     <CategoryGrid />
     <TestimonialSection />
     <MissionSection />
@@ -45,7 +41,7 @@ const Home = memo(() => {
         className="w-full"
         {...pageTransition}
       >
-        <Suspense fallback={<LoadingPlaceholder height="h-screen" />}>
+        <Suspense fallback={<Loader text="GARMENTS" spinDuration={8} />}>
           <HomeContent />
         </Suspense>
       </m.div>
