@@ -324,3 +324,14 @@ export const getHolidayGifts = () => {
     const allProducts = [...Products.women, ...Products.men];
     return allProducts.filter(product => product.categories?.includes(Categories.HOLIDAY_GIFTING));
 };
+
+// Function to get a curated selection of featured catalog products
+export const getFeaturedCatalog = () => {
+    const allProducts = [...Products.women, ...Products.men];
+    
+    // Manually define the IDs of products to be featured in the catalog section
+    const featuredIds = [1, 2, 3, 4, 5, 6];
+    
+    // Return products that match the featured IDs
+    return allProducts.filter(product => featuredIds.includes(product.id));
+};

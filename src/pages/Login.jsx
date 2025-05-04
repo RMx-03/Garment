@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import useComponentLoaded from '../hooks/useComponentLoaded';
+import { useLoading } from '../components/loader/LoadingProvider';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setLoading } = useLoading();
+  
+  // Register this component in the loading system with immediate ready state
+  useComponentLoaded('login-page', true, 0, 500);
+  
+  // Hide loading screen when component mounts
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [setLoading]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

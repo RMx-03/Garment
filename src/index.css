@@ -42,6 +42,39 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Grainy background effect */
+.bg-grainy {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-position: 0 0;
+  background-size: 200px;
+  background-repeat: repeat;
+}
+
+.bg-grainy-light {
+  position: relative;
+}
+
+.bg-grainy-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-position: 0 0;
+  background-size: 200px;
+  background-repeat: repeat;
+  opacity: 0.3;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bg-grainy-light > * {
+  position: relative;
+  z-index: 2;
+}
+
 /* Hide scrollbar but maintain functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -50,6 +83,126 @@ html {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Hide scrollbar class specifically for the community image thumbnails */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Enhanced carousel styling */
+.carousel-container {
+  position: relative;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-transform: translateZ(0); /* Hardware acceleration */
+  transform: translateZ(0);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  scroll-behavior: smooth;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-item {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Featured product card styling */
+.featured-product-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  contain: layout style paint;
+  height: 100%;
+  display: block;
+  width: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.featured-product-card img {
+  transition: transform 0.5s ease-out;
+  transform: scale(1);
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.featured-product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Card info box slide up on hover */
+.featured-product-card > div {
+  will-change: transform;
+}
+
+/* Only apply the hiding/showing on devices with hover capability */
+@media (hover: hover) {
+  .featured-product-card .colors-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+  }
+  
+  .featured-product-card:hover .colors-container {
+    max-height: 50px;
+    transition: max-height 0.3s ease-in;
+  }
+}
+
+/* Colors always visible on mobile devices */
+@media (hover: none) {
+  .featured-product-card .colors-container {
+    max-height: initial;
+    overflow: visible;
+  }
+  
+  /* Don't animate the info box on mobile */
+  .featured-product-card > div {
+    transform: none !important;
+    transition: none !important;
+  }
+  
+  .featured-product-card:active img {
+    transform: scale(1.05);
+  }
+}
+
+/* Fix for navigation arrows to appear outside product cards */
+.featured-showcase-nav-button {
+  z-index: 20;
+  margin: 0 -12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Add square style for navigation buttons */
+.featured-showcase-nav-button {
+  border-radius: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Optimize animations */
@@ -83,6 +236,17 @@ html {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+/* Responsive font sizes */
+@media (max-width: 640px) {
+  h2.text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  .text-sm {
+    font-size: 0.75rem;
   }
 }
 

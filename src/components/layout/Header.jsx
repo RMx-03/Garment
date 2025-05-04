@@ -116,10 +116,10 @@ const Header = () => {
             {/* Main Navigation */}
             <div className="hidden lg:block">
               <div className="flex items-center space-x-8" role="navigation" aria-label="Desktop navigation">
-                <Link to="/women" className={textColorClasses}>Women</Link>
-                <Link to="/men" className={textColorClasses}>Men</Link>
-                <Link to="/about" className={textColorClasses}>About</Link>
-                <Link to="/stores" className={textColorClasses}>Stores</Link>
+                <Link to="/women" className={`${textColorClasses} outfit-regular`}>Women</Link>
+                <Link to="/men" className={`${textColorClasses} outfit-regular`}>Men</Link>
+                <Link to="/about" className={`${textColorClasses} outfit-regular`}>About</Link>
+                <Link to="/stores" className={`${textColorClasses} outfit-regular`}>Stores</Link>
               </div>
             </div>
 
@@ -173,28 +173,28 @@ const Header = () => {
             <div className="px-2 pt-2 pb-3 space-y-1">
               <Link
                 to="/women"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                className="block px-3 py-2 text-base outfit-regular text-gray-700 hover:text-black"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Women
               </Link>
               <Link
                 to="/men"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                className="block px-3 py-2 text-base outfit-regular text-gray-700 hover:text-black"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Men
               </Link>
               <Link
                 to="/about"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                className="block px-3 py-2 text-base outfit-regular text-gray-700 hover:text-black"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
               </Link>
               <Link
                 to="/stores"
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-black"
+                className="block px-3 py-2 text-base outfit-regular text-gray-700 hover:text-black"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Stores

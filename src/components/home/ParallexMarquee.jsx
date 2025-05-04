@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import {
   motion,
   useScroll,
@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import { wrap } from "@motionone/utils";
 
-const ParallaxText = ({ children, baseVelocity = 1.5 }) => {
+const ParallaxText = memo(({ children, baseVelocity = 1.5 }) => {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -41,7 +41,7 @@ const ParallaxText = ({ children, baseVelocity = 1.5 }) => {
   return (
     <div className="overflow-hidden whitespace-nowrap flex flex-nowrap leading-none py-8 w-full relative">
       <motion.div
-        className="inline-block whitespace-nowrap will-change-transform text-[2.5rem] md:text-[8rem] tracking-tight plaster-regular text-black"
+        className="inline-block whitespace-nowrap will-change-transform text-[2.5rem] md:text-[8rem] tracking-tight plaster-regular text-white"
         style={{ x }}
       >
         <span className="mx-8">{children}</span>
@@ -51,14 +51,20 @@ const ParallaxText = ({ children, baseVelocity = 1.5 }) => {
       </motion.div>
     </div>
   );
-};
+});
 
-export default function ParallaxMarquee() {
+ParallaxText.displayName = 'ParallaxText';
+
+const ParallaxMarquee = memo(() => {
   return (
-    <section className="bg-white">
+    <section className="bg-black">
       <ParallaxText baseVelocity={1}>
-        Sustainable Fashion ✦ Statement Pieces ✦ Luxe Fabrics → Streetwear Culture ✦ Comfort Meets Style ✦ Capsule Wardrobe ✦ Slow Fashion →
+        VERSACE ✦ ZARA ✦ GUCCI → PRADA ✦ Calvin Klein ✦ CHANEL ✦ DIOR → BALENCIAGA ✦ LOUIS VUITTON ✦ FENDI →
       </ParallaxText>
     </section>
   );
-}
+});
+
+ParallaxMarquee.displayName = 'ParallaxMarquee';
+
+export default ParallaxMarquee;

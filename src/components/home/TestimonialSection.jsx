@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import Slider from 'react-slick';
 import { testimonials } from '../../data/testimonials';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const StarRating = ({ rating }) => {
+const StarRating = memo(({ rating }) => {
   return (
     <div className="flex gap-1.5 mb-4">
       {[...Array(rating)].map((_, index) => (
@@ -12,9 +12,11 @@ const StarRating = ({ rating }) => {
       ))}
     </div>
   );
-};
+});
 
-const TestimonialCard = ({ testimonial }) => {
+StarRating.displayName = 'StarRating';
+
+const TestimonialCard = memo(({ testimonial }) => {
   return (
     <div className="bg-white p-6 md:p-8 shadow-lg mx-2 my-4 flex flex-col h-full">
       <div className="flex-grow">
@@ -41,54 +43,77 @@ const TestimonialCard = ({ testimonial }) => {
       </div>
     </div>
   );
+});
+
+TestimonialCard.displayName = 'TestimonialCard';
+
+const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+  arrows: true,
+  className: "testimonial-swiper",
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: '20px'
+      }
+    }
+  ]
 };
 
-const Testimonials = () => {
+const MobileTestimonials = memo(({ testimonials }) => (
+  <Slider {...sliderSettings}>
+    {testimonials.map((testimonial) => (
+      <div key={testimonial.id} className="outline-none">
+        <TestimonialCard testimonial={testimonial} />
+      </div>
+    ))}
+  </Slider>
+));
+
+MobileTestimonials.displayName = 'MobileTestimonials';
+
+const DesktopTestimonials = memo(({ testimonials }) => (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {testimonials.map((testimonial) => (
+      <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+    ))}
+  </div>
+));
+
+DesktopTestimonials.displayName = 'DesktopTestimonials';
+
+const TestimonialSection = memo(() => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+  const handleResize = useCallback(() => {
+    setIsMobile(window.innerWidth < 768);
   }, []);
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: true,
-    className: "testimonial-swiper",
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: '20px'
-        }
-      }
-    ]
-  };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [handleResize]);
 
   return (
-    <div className="bg-gray-50 py-16 md:py-24 px-4 overflow-hidden">
+    <div className="bg-gray-50 bg-grainy-light py-16 md:py-24 px-4 overflow-hidden">
       <div className="max-w-7xl mx-auto">
-
         <div className="relative flex flex-col md:flex-row items-center md:items-start justify-between gap-6 text-left mb-12 md:mb-16 md:px-12">
           <h1 className="londrina-outline-regular pl-4 md:pl-12 absolute top-6 md:top-12 left-22 md:left-0 text-6xl md:text-[8rem] lg:text-[10rem] font-extrabold text-[#FF6B6B]  pointer-events-none select-none z-0">
             Testimonials
@@ -102,9 +127,6 @@ const Testimonials = () => {
               </h2>
               <span className="text-[#FF6B6B] text-2xl md:text-3xl">✦</span>
             </div>
-              {/* <h2 className="lg:hidden pl-3 font-['Playfair_Display'] font-extrabold text-3xl md:text-5xl text-gray-900">
-                Testimonials
-              </h2> */}
           </div>
           <div className="max-w-sm">
             <p className="outfit-regular text-center text-gray-500 text-base pt-8 md:text-lg font-['Inter'] max-w-2xl mx-auto">
@@ -115,24 +137,16 @@ const Testimonials = () => {
         
         <div className="relative lg:pt-12 px-0 md:px-4">
           {isMobile ? (
-            <Slider {...sliderSettings}>
-              {testimonials.map((testimonial) => (
-                <div key={testimonial.id} className="outline-none">
-                  <TestimonialCard testimonial={testimonial} />
-                </div>
-              ))}
-            </Slider>
+            <MobileTestimonials testimonials={testimonials} />
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {testimonials.map((testimonial) => (
-                <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-              ))}
-            </div>
+            <DesktopTestimonials testimonials={testimonials} />
           )}
         </div>
       </div>
     </div>
   );
-}
+});
 
-export default Testimonials;
+TestimonialSection.displayName = 'TestimonialSection';
+
+export default TestimonialSection;
