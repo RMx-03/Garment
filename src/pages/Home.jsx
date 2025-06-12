@@ -143,25 +143,8 @@ CachedMissionSection.displayName = 'CachedMissionSection';
 
 // Memoize the content wrapper
 const HomeContent = memo(() => {
-  // Register the home content in the loading system with a short timeout
-  useComponentLoaded('home-content', true, 0, 2000);
-  
-  // Mark the page as initially loaded after a reasonable timeout
-  const { setLoading } = useLoading();
-  const forceLoadTimerRef = useRef(null);
-  
-  useEffect(() => {
-    // Force hide the loader after 5 seconds no matter what
-    forceLoadTimerRef.current = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-    
-    return () => {
-      if (forceLoadTimerRef.current) {
-        clearTimeout(forceLoadTimerRef.current);
-      }
-    };
-  }, [setLoading]);
+  // Register the home content in the loading system 
+  useComponentLoaded('home-content', true, 300, 2000);
   
   // Use useMemo for the entire content to prevent re-rendering
   const content = useMemo(() => (
@@ -183,8 +166,8 @@ const HomeContent = memo(() => {
 HomeContent.displayName = 'HomeContent';
 
 const Home = memo(() => {
-  // Register that the Home page is loading with a short timeout
-  useComponentLoaded('home-page', true, 0, 2000);
+  // Register that the Home page is loading 
+  useComponentLoaded('home-page', true, 100, 2000);
   
   // Preload only the most critical images with a short timeout
   useImagePreloader(criticalImages, 'home-critical-images', 3000);

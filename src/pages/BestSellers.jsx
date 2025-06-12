@@ -7,19 +7,10 @@ import TrackedImage from '../components/common/TrackedImage';
 
 const BestSellers = () => {
   const products = getBestSellers();
-  const { setLoading } = useLoading();
   const [imagesLoaded, setImagesLoaded] = useState(0);
   
-  // Register this page in the loading system with immediate ready state
-  useComponentLoaded('best-sellers-page', true, 0, 800);
-  
-  // Hide loading screen when component mounts
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [setLoading]);
+  // Register this page in the loading system - it's immediately ready
+  useComponentLoaded('best-sellers-page', true, 200, 1000);
 
   return (
     <div className="bg-white">

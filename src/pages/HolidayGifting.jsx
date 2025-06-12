@@ -8,18 +8,9 @@ import TrackedImage from '../components/common/TrackedImage';
 
 const HolidayGifting = () => {
   const products = getHolidayGifts();
-  const { setLoading } = useLoading();
   
-  // Register this page in the loading system with immediate ready state
-  useComponentLoaded('holiday-gifting-page', true, 0, 800);
-  
-  // Hide loading screen when component mounts
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [setLoading]);
+  // Register this page in the loading system - it's immediately ready
+  useComponentLoaded('holiday-gifting-page', true, 200, 1000);
 
   return (
     <div className="bg-white">

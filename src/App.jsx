@@ -75,38 +75,41 @@ const CachedRoute = ({ path, element: Component }) => {
   return cache[path] || <Component />;
 };
 
+// Simple navigation loader that shows for route changes
+const NavigationLoader = () => {
+  const { pathname } = useLocation();
+  const { setLoading } = useLoading();
+  const [currentPath, setCurrentPath] = useState(pathname);
+
+  useEffect(() => {
+    // Only show loader for route changes, not initial load
+    if (currentPath !== pathname) {
+      setLoading(true);
+      
+      // Hide loader after a short delay to allow page components to register
+      const timer = setTimeout(() => {
+        setLoading(false);
+      }, 300);
+      
+      setCurrentPath(pathname);
+      return () => clearTimeout(timer);
+    }
+  }, [pathname, setLoading, currentPath]);
+
+  return null;
+};
+
 // ScrollToTop component to handle smooth scrolling on route changes
 const ScrollToTop = () => {
   const { pathname } = useLocation();
-  const { setLoading } = useLoading();
-  const { cache } = usePageCache();
 
   useEffect(() => {
-    // Show loader only if the page is not cached
-    if (!cache[pathname]) {
-      setLoading(true);
-    } else {
-      // For cached pages, just handle the scroll without showing the loader
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-      return;
-    }
-    
-    // Short timeout to prevent flashing for quick page loads
-    const timer = setTimeout(() => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-      
-      // Give a small delay to load critical content before hiding loader
-      setTimeout(() => setLoading(false), 300);
-    }, 50);
-    
-    return () => clearTimeout(timer);
-  }, [pathname, setLoading, cache]);
+    // Smooth scroll to top on route change
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
 
   return null;
 };
@@ -138,6 +141,7 @@ function App() {
     <CartProvider>
       <PageCacheProvider>
         <Router>
+          <NavigationLoader />
           <ScrollToTop />
           <Prefetcher />
           {/* GlobalLoader will show until all registered components are loaded */}

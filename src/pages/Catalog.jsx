@@ -11,18 +11,9 @@ const Catalog = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
   const [sortBy, setSortBy] = useState('featured');
-  const { setLoading } = useLoading();
   
-  // Register this page in the loading system
-  useComponentLoaded('catalog-page', true, 0, 1500);
-  
-  // Hide loading screen when component mounts
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, [setLoading]);
+  // Register this page in the loading system - it's immediately ready
+  useComponentLoaded('catalog-page', true, 200, 1500);
 
   // Combine all products from both men and women categories
   const allProducts = [...Products.women, ...Products.men];

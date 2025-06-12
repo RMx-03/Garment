@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useCallback, useEffect, useRef } f
 
 // Create context for loading state
 const LoadingContext = createContext({
-  isLoading: true,
+  isLoading: false,
   setLoading: () => {},
   registerComponent: () => {},
   componentLoaded: () => {},
@@ -12,10 +12,11 @@ const LoadingContext = createContext({
 export const useLoading = () => useContext(LoadingContext);
 
 export const LoadingProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); // Start with false to prevent initial flash
   const [pendingComponents, setPendingComponents] = useState(new Set());
   const componentRegistry = useRef(new Map());
-  const timeoutRef = useRef(null);
+  const loadingTimeoutRef = useRef(null);
+  const firstLoadRef = useRef(true);
   
   // Register a component that needs to load
   const registerComponent = useCallback((componentId) => {
@@ -42,48 +43,47 @@ export const LoadingProvider = ({ children }) => {
   
   // Set loading state directly (for manual control)
   const setLoading = useCallback((state) => {
-    setIsLoading(state);
-  }, []);
-  
-  // Force complete loading after a timeout (failsafe)
-  useEffect(() => {
-    // Set a maximum loading time of 8 seconds
-    const MAXIMUM_LOADING_TIME = 8000;
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
     
-    if (isLoading) {
-      timeoutRef.current = setTimeout(() => {
+    if (state) {
+      setIsLoading(true);
+      // Set a maximum loading time of 6 seconds (reduced from 8)
+      loadingTimeoutRef.current = setTimeout(() => {
         console.log('Loading timeout reached. Force completing loading.');
         setPendingComponents(new Set());
         setIsLoading(false);
-      }, MAXIMUM_LOADING_TIME);
+        firstLoadRef.current = false;
+      }, 6000);
+    } else {
+      // Add a small delay only for the first load to ensure smooth transition
+      const delay = firstLoadRef.current ? 300 : 100;
+      loadingTimeoutRef.current = setTimeout(() => {
+        setIsLoading(false);
+        firstLoadRef.current = false;
+      }, delay);
     }
-    
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [isLoading]);
+  }, []);
   
   // Check for stalled components (taking too long)
   useEffect(() => {
-    // Component timeout after 5 seconds
-    const COMPONENT_TIMEOUT = 5000;
+    const COMPONENT_TIMEOUT = 3000; // Reduced from 5000ms
     const interval = setInterval(() => {
       const now = Date.now();
-      let hasStalled = false;
+      const stalledComponents = [];
       
       componentRegistry.current.forEach((registeredTime, componentId) => {
         if (now - registeredTime > COMPONENT_TIMEOUT) {
-          console.log(`Component ${componentId} took too long to load. Force completing.`);
-          componentLoaded(componentId);
-          hasStalled = true;
+          stalledComponents.push(componentId);
         }
       });
       
-      if (hasStalled) {
-        // Force update if we cleared stalled components
-        setPendingComponents(prev => new Set(prev));
+      if (stalledComponents.length > 0) {
+        console.log(`Components [${stalledComponents.join(', ')}] took too long to load. Force completing.`);
+        stalledComponents.forEach(componentId => {
+          componentLoaded(componentId);
+        });
       }
     }, 1000);
     
@@ -93,15 +93,23 @@ export const LoadingProvider = ({ children }) => {
   // Update loading state based on pending components
   useEffect(() => {
     if (pendingComponents.size === 0) {
-      // Use a small delay to ensure smooth transitions
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 400);
-      return () => clearTimeout(timer);
-    } else {
-      setIsLoading(true);
+      // Only hide loader if we have pending components that finished
+      if (componentRegistry.current.size === 0) {
+        setLoading(false);
+      }
+    } else if (pendingComponents.size > 0 && !isLoading) {
+      setLoading(true);
     }
-  }, [pendingComponents]);
+  }, [pendingComponents, setLoading, isLoading]);
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+    };
+  }, []);
   
   return (
     <LoadingContext.Provider value={{ 

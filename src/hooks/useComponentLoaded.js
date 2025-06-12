@@ -14,23 +14,30 @@ const useComponentLoaded = (componentId, isLoaded = false, delay = 0, timeout = 
   const hasReportedLoadedRef = useRef(false);
   const timeoutIdRef = useRef(null);
   const delayIdRef = useRef(null);
+  const componentIdRef = useRef(componentId);
+  
+  // Update componentId ref when it changes
+  useEffect(() => {
+    componentIdRef.current = componentId;
+  }, [componentId]);
   
   // Handle registration and cleanup
   useEffect(() => {
+    const currentComponentId = componentIdRef.current;
+    
     // Only register if this is the first time and component hasn't reported loaded yet
     if (!isRegisteredRef.current && !hasReportedLoadedRef.current) {
-      registerComponent(componentId);
+      registerComponent(currentComponentId);
       isRegisteredRef.current = true;
+      
+      // Set a safety timeout to prevent infinite loading
+      timeoutIdRef.current = setTimeout(() => {
+        if (!hasReportedLoadedRef.current) {
+          componentLoaded(currentComponentId);
+          hasReportedLoadedRef.current = true;
+        }
+      }, timeout);
     }
-    
-    // Set a safety timeout to prevent infinite loading
-    timeoutIdRef.current = setTimeout(() => {
-      if (!hasReportedLoadedRef.current) {
-        console.log(`Component ${componentId} timed out. Auto-marking as loaded.`);
-        componentLoaded(componentId);
-        hasReportedLoadedRef.current = true;
-      }
-    }, timeout);
     
     // Clean up on unmount if not yet loaded
     return () => {
@@ -43,24 +50,34 @@ const useComponentLoaded = (componentId, isLoaded = false, delay = 0, timeout = 
       }
       
       if (!hasReportedLoadedRef.current) {
-        componentLoaded(componentId);
+        componentLoaded(currentComponentId);
         hasReportedLoadedRef.current = true;
       }
     };
-  }, [componentId, registerComponent, componentLoaded, timeout]);
+  }, [registerComponent, componentLoaded, timeout]);
   
   // Handle isLoaded changes
   useEffect(() => {
+    const currentComponentId = componentIdRef.current;
+    
     // Mark as loaded when isLoaded becomes true
     if (isLoaded && !hasReportedLoadedRef.current) {
+      // Clear any existing timeout
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+        timeoutIdRef.current = null;
+      }
+      
       // Add delay if specified for visual stability
       if (delay > 0) {
         delayIdRef.current = setTimeout(() => {
-          componentLoaded(componentId);
-          hasReportedLoadedRef.current = true;
+          if (!hasReportedLoadedRef.current) {
+            componentLoaded(currentComponentId);
+            hasReportedLoadedRef.current = true;
+          }
         }, delay);
       } else {
-        componentLoaded(componentId);
+        componentLoaded(currentComponentId);
         hasReportedLoadedRef.current = true;
       }
     }
@@ -70,13 +87,24 @@ const useComponentLoaded = (componentId, isLoaded = false, delay = 0, timeout = 
         clearTimeout(delayIdRef.current);
       }
     };
-  }, [componentId, isLoaded, componentLoaded, delay]);
+  }, [isLoaded, componentLoaded, delay]);
   
   // Return a function to manually report as loaded
   return {
     markAsLoaded: () => {
+      const currentComponentId = componentIdRef.current;
       if (!hasReportedLoadedRef.current) {
-        componentLoaded(componentId);
+        // Clear any existing timeouts
+        if (timeoutIdRef.current) {
+          clearTimeout(timeoutIdRef.current);
+          timeoutIdRef.current = null;
+        }
+        if (delayIdRef.current) {
+          clearTimeout(delayIdRef.current);
+          delayIdRef.current = null;
+        }
+        
+        componentLoaded(currentComponentId);
         hasReportedLoadedRef.current = true;
       }
     }
