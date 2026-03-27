@@ -8,6 +8,10 @@
 - Integrated Framer Motion animations and React Window virtualization to enhance rendering performance and deliver smooth, polished user experience across desktop, tablet, and mobile viewports.
 - Ensured modular, scalable component architecture with dedicated layers for cart, filters, layout, product display, and search, supporting future expansion to additional product lines and features.
 
+```
+technologies: ['React 18', 'Vite', 'Tailwind CSS', 'React Router DOM', 'Framer Motion', 'Stripe', 'Formik', 'Yup', 'React Window', 'React Context', 'React Icons', 'React Lazy Load Image Component', 'Swiper', 'ESLint']
+```
+
 A modern, high-performance e-commerce website for fashion garments built with React and Vite. Features a clean, responsive design with advanced performance optimizations including lazy loading, component caching, and image preloading.
 
 ## ✨ Features
