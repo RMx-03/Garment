@@ -1,4 +1,12 @@
-# Garments - Modern E-commerce Fashion Store 
+# Garments - Modern E-commerce Fashion Store
+
+## 📋 Project Description
+
+- Designed and built a modern, full-featured e-commerce fashion store with product catalog, shopping cart, checkout flow, and category filtering using React 18, Vite, and Tailwind CSS.
+- Implemented a single-page application (SPA) with multiple routes via React Router DOM v6 with smart component caching, lazy loading, and route prefetching to deliver fast, seamless navigation across product listings, detail pages, and checkout.
+- Developed a responsive Stripe-integrated storefront UI for product browsing, size/color variant selection, cart management, and secure payment processing with Formik and Yup form validation.
+- Integrated Framer Motion animations and React Window virtualization to enhance rendering performance and deliver smooth, polished user experience across desktop, tablet, and mobile viewports.
+- Ensured modular, scalable component architecture with dedicated layers for cart, filters, layout, product display, and search, supporting future expansion to additional product lines and features.
 
 A modern, high-performance e-commerce website for fashion garments built with React and Vite. Features a clean, responsive design with advanced performance optimizations including lazy loading, component caching, and image preloading.
 
